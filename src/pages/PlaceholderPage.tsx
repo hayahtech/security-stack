@@ -35,8 +35,8 @@ export default function PlaceholderPage() {
         </div>
         <h1 className="font-display text-2xl font-bold text-foreground">{title}</h1>
         <p className="text-muted-foreground font-data max-w-md">
-          Este módulo está em desenvolvimento. Em breve você terá acesso a todas
-          as funcionalidades.
+          Este módulo está em fase de desenvolvimento no momento. Em breve você terá acesso a todas
+          as funcionalidades. Agradecemos sua compreensão.
         </p>
         <div className="flex items-center justify-center gap-2 pt-4">
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
