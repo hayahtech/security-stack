@@ -27,6 +27,7 @@ import CapturaAutomatica from "./pages/CapturaAutomatica";
 import CentrosCusto from "./pages/CentrosCusto";
 import Governanca from "./pages/Governanca";
 import Integracoes from "./pages/Integracoes";
+import Orcamento from "./pages/Orcamento";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
