@@ -30,6 +30,8 @@ import Integracoes from "./pages/Integracoes";
 import Orcamento from "./pages/Orcamento";
 import SaudeFinanceira from "./pages/SaudeFinanceira";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import PlanoContas from "./pages/PlanoContas";
+import DiarioContabil from "./pages/DiarioContabil";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -68,6 +70,8 @@ const App = () => (
             <Route path="/integracoes" element={<Integracoes />} />
             <Route path="/orcamento" element={<Orcamento />} />
             <Route path="/saude" element={<SaudeFinanceira />} />
+            <Route path="/plano-contas" element={<PlanoContas />} />
+            <Route path="/diario-contabil" element={<DiarioContabil />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
