@@ -56,6 +56,7 @@ const operationsNav = [
   { title: "Tesouraria", url: "/tesouraria", icon: Building2 },
   { title: "Conciliação Bancária", url: "/conciliacao", icon: GitCompare },
   { title: "Custos & Despesas", url: "/custos", icon: Calculator },
+  { title: "Centros de Custo & Rateio", url: "/centros-custo", icon: Target },
   { title: "CMV", url: "/cmv", icon: Package },
 ];
 

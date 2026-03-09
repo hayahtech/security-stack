@@ -25,7 +25,8 @@ export function Topbar() {
     <header className="h-14 border-b border-border bg-card/50 backdrop-blur-sm flex items-center justify-between px-4">
       <div className="flex items-center gap-3">
         <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
-        <div className="hidden md:flex items-center gap-3">
+        <EntitySelector />
+        <div className="hidden lg:flex items-center gap-3">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
             <span className="font-display font-bold text-xs text-primary-foreground">T</span>
           </div>
