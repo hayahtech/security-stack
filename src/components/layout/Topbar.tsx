@@ -1,4 +1,5 @@
-import { Bell, ChevronDown, User } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Bell, ChevronDown, User, Sun, Moon, Wifi } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,6 +13,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { EntitySelector } from "./EntitySelector";
 import { GlobalSearch } from "./GlobalSearch";
 import { notifications } from "@/mock/financialData";
+import { cn } from "@/lib/utils";
 
 const periodOptions = [
   { value: "month", label: "Março 2025" },
@@ -21,6 +23,23 @@ const periodOptions = [
 ];
 
 export function Topbar() {
+  const [dark, setDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      return document.documentElement.classList.contains("dark") || !document.documentElement.classList.contains("light");
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    if (dark) {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+    }
+  }, [dark]);
+
   return (
     <header className="h-14 border-b border-border bg-card/50 backdrop-blur-sm flex items-center justify-between px-4">
       <div className="flex items-center gap-3">
@@ -38,8 +57,18 @@ export function Topbar() {
       </div>
 
       <div className="flex items-center gap-2">
+        {/* Real-time indicator */}
+        <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground mr-2">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
+          </span>
+          <span className="font-data">Atualizado há 4 min</span>
+        </div>
+
         <GlobalSearch />
 
+        {/* Period selector */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="gap-1.5 bg-muted/50 border-border hover:bg-muted h-8 text-xs">
@@ -49,13 +78,22 @@ export function Topbar() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-card border-border">
             {periodOptions.map((option) => (
-              <DropdownMenuItem key={option.value} className="font-data text-xs">
-                {option.label}
-              </DropdownMenuItem>
+              <DropdownMenuItem key={option.value} className="font-data text-xs">{option.label}</DropdownMenuItem>
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
 
+        {/* Dark/Light toggle */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8"
+          onClick={() => setDark(!dark)}
+        >
+          {dark ? <Sun className="h-4 w-4 text-muted-foreground" /> : <Moon className="h-4 w-4 text-muted-foreground" />}
+        </Button>
+
+        {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="relative h-8 w-8">
@@ -78,6 +116,7 @@ export function Topbar() {
           </DropdownMenuContent>
         </DropdownMenu>
 
+        {/* User */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
