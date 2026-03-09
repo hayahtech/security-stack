@@ -11,6 +11,7 @@ import Tesouraria from "./pages/Tesouraria";
 import ConciliacaoBancaria from "./pages/ConciliacaoBancaria";
 import Contas from "./pages/Contas";
 import Inadimplencia from "./pages/Inadimplencia";
+import Liquidez from "./pages/Liquidez";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -28,8 +29,8 @@ const App = () => (
             <Route path="/dre" element={<Dre />} />
             <Route path="/fluxo-caixa" element={<FluxoCaixa />} />
             <Route path="/contas" element={<Contas />} />
-            <Route path="/liquidez" element={<PlaceholderPage />} />
-            <Route path="/capital-giro" element={<PlaceholderPage />} />
+            <Route path="/liquidez" element={<Liquidez />} />
+            <Route path="/capital-giro" element={<Liquidez />} />
             <Route path="/margem" element={<PlaceholderPage />} />
             <Route path="/ciclo" element={<PlaceholderPage />} />
             <Route path="/inadimplencia" element={<Inadimplencia />} />
