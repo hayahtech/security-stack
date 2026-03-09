@@ -26,6 +26,8 @@ import {
   Heart,
   BookOpen,
   ScrollText,
+  Scale,
+  FileSignature,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -47,8 +49,10 @@ const mainNav = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { title: "Saúde Financeira", url: "/saude", icon: Heart },
   { title: "DRE", url: "/dre", icon: FileText },
+  { title: "Balanço Patrimonial", url: "/balanco", icon: Scale },
   { title: "Fluxo de Caixa", url: "/fluxo-caixa", icon: TrendingUp },
   { title: "Contas a Pagar/Receber", url: "/contas", icon: Wallet },
+  { title: "Contratos", url: "/contratos", icon: FileSignature },
 ];
 
 const indicatorsNav = [
