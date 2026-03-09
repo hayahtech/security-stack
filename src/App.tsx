@@ -24,15 +24,15 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dre" element={<Dre />} />
-            <Route path="/fluxo-caixa" element={<PlaceholderPage />} />
+            <Route path="/fluxo-caixa" element={<FluxoCaixa />} />
             <Route path="/contas" element={<PlaceholderPage />} />
             <Route path="/liquidez" element={<PlaceholderPage />} />
             <Route path="/capital-giro" element={<PlaceholderPage />} />
             <Route path="/margem" element={<PlaceholderPage />} />
             <Route path="/ciclo" element={<PlaceholderPage />} />
             <Route path="/inadimplencia" element={<PlaceholderPage />} />
-            <Route path="/tesouraria" element={<PlaceholderPage />} />
-            <Route path="/conciliacao" element={<PlaceholderPage />} />
+            <Route path="/tesouraria" element={<Tesouraria />} />
+            <Route path="/conciliacao" element={<ConciliacaoBancaria />} />
             <Route path="/custos" element={<PlaceholderPage />} />
             <Route path="/cmv" element={<PlaceholderPage />} />
             <Route path="/kpis" element={<PlaceholderPage />} />
