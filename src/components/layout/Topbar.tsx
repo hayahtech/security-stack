@@ -9,6 +9,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { EntitySelector } from "./EntitySelector";
 import { GlobalSearch } from "./GlobalSearch";
 import { notifications } from "@/mock/financialData";
 
