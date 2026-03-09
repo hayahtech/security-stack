@@ -20,7 +20,7 @@ const App = () => (
         <MainLayout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/dre" element={<PlaceholderPage />} />
+            <Route path="/dre" element={<Dre />} />
             <Route path="/fluxo-caixa" element={<PlaceholderPage />} />
             <Route path="/contas" element={<PlaceholderPage />} />
             <Route path="/liquidez" element={<PlaceholderPage />} />
