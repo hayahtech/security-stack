@@ -72,6 +72,7 @@ const analyticsNav = [
 const otherNav = [
   { title: "Captura Automática", url: "/captura", icon: ScanText },
   { title: "Governança & Controle", url: "/governanca", icon: Shield },
+  { title: "Integrações & Automações", url: "/integracoes", icon: Plug },
   { title: "Emissão de NF-e", url: "/nfe", icon: Receipt },
   { title: "Relatórios", url: "/relatorios", icon: FileBarChart },
   { title: "Configurações", url: "/configuracoes", icon: Settings },
