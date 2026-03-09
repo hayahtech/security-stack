@@ -44,10 +44,10 @@ const App = () => (
             <Route path="/conciliacao" element={<ConciliacaoBancaria />} />
             <Route path="/custos" element={<PlaceholderPage />} />
             <Route path="/cmv" element={<CMV />} />
-            <Route path="/kpis" element={<KpisRoi />} />
+            <Route path="/kpis" element={<KpisAvancados />} />
             <Route path="/analise-hv" element={<PlaceholderPage />} />
             <Route path="/projecoes" element={<PlaceholderPage />} />
-            <Route path="/riscos" element={<PlaceholderPage />} />
+            <Route path="/riscos" element={<AnaliseRiscos />} />
             <Route path="/nfe" element={<PlaceholderPage />} />
             <Route path="/relatorios" element={<PlaceholderPage />} />
             <Route path="/configuracoes" element={<PlaceholderPage />} />
