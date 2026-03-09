@@ -9,6 +9,8 @@ import Dre from "./pages/Dre";
 import FluxoCaixa from "./pages/FluxoCaixa";
 import Tesouraria from "./pages/Tesouraria";
 import ConciliacaoBancaria from "./pages/ConciliacaoBancaria";
+import Contas from "./pages/Contas";
+import Inadimplencia from "./pages/Inadimplencia";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -25,12 +27,12 @@ const App = () => (
             <Route path="/" element={<Dashboard />} />
             <Route path="/dre" element={<Dre />} />
             <Route path="/fluxo-caixa" element={<FluxoCaixa />} />
-            <Route path="/contas" element={<PlaceholderPage />} />
+            <Route path="/contas" element={<Contas />} />
             <Route path="/liquidez" element={<PlaceholderPage />} />
             <Route path="/capital-giro" element={<PlaceholderPage />} />
             <Route path="/margem" element={<PlaceholderPage />} />
             <Route path="/ciclo" element={<PlaceholderPage />} />
-            <Route path="/inadimplencia" element={<PlaceholderPage />} />
+            <Route path="/inadimplencia" element={<Inadimplencia />} />
             <Route path="/tesouraria" element={<Tesouraria />} />
             <Route path="/conciliacao" element={<ConciliacaoBancaria />} />
             <Route path="/custos" element={<PlaceholderPage />} />
