@@ -61,6 +61,7 @@ const App = () => (
             <Route path="/configuracoes" element={<Configuracoes />} />
             <Route path="/captura" element={<CapturaAutomatica />} />
             <Route path="/centros-custo" element={<CentrosCusto />} />
+            <Route path="/governanca" element={<Governanca />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
