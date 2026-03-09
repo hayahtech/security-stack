@@ -16,6 +16,8 @@ import Margem from "./pages/Margem";
 import CicloFinanceiro from "./pages/CicloFinanceiro";
 import CMV from "./pages/CMV";
 import KpisRoi from "./pages/KpisRoi";
+import KpisAvancados from "./pages/KpisAvancados";
+import AnaliseRiscos from "./pages/AnaliseRiscos";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -42,10 +44,10 @@ const App = () => (
             <Route path="/conciliacao" element={<ConciliacaoBancaria />} />
             <Route path="/custos" element={<PlaceholderPage />} />
             <Route path="/cmv" element={<CMV />} />
-            <Route path="/kpis" element={<KpisRoi />} />
+            <Route path="/kpis" element={<KpisAvancados />} />
             <Route path="/analise-hv" element={<PlaceholderPage />} />
             <Route path="/projecoes" element={<PlaceholderPage />} />
-            <Route path="/riscos" element={<PlaceholderPage />} />
+            <Route path="/riscos" element={<AnaliseRiscos />} />
             <Route path="/nfe" element={<PlaceholderPage />} />
             <Route path="/relatorios" element={<PlaceholderPage />} />
             <Route path="/configuracoes" element={<PlaceholderPage />} />
