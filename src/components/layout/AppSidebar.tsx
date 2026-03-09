@@ -24,6 +24,8 @@ import {
   Plug,
   DollarSign,
   Heart,
+  BookOpen,
+  ScrollText,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -63,6 +65,11 @@ const operationsNav = [
   { title: "Custos & Despesas", url: "/custos", icon: Calculator },
   { title: "Centros de Custo & Rateio", url: "/centros-custo", icon: Target },
   { title: "CMV", url: "/cmv", icon: Package },
+];
+
+const accountingNav = [
+  { title: "Diário Contábil", url: "/diario-contabil", icon: ScrollText },
+  { title: "Plano de Contas", url: "/plano-contas", icon: BookOpen },
 ];
 
 const analyticsNav = [
