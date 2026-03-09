@@ -55,7 +55,7 @@ const App = () => (
             <Route path="/riscos" element={<AnaliseRiscos />} />
             <Route path="/nfe" element={<NFePage />} />
             <Route path="/relatorios" element={<Relatorios />} />
-            <Route path="/configuracoes" element={<PlaceholderPage />} />
+            <Route path="/configuracoes" element={<Configuracoes />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
