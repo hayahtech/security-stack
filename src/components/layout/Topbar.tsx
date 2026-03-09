@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bell, ChevronDown, User, Sun, Moon, Wifi } from "lucide-react";
+import { Bell, ChevronDown, User, Sun, Moon, Wifi, Briefcase, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -82,6 +82,23 @@ export function Topbar() {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
+
+        {/* Modo CFO / Sócio toggle */}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-8 gap-1.5 text-xs font-data hidden md:flex"
+          onClick={() => {
+            const body = document.documentElement;
+            body.classList.toggle("modo-socio");
+          }}
+        >
+          <Briefcase className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className="text-muted-foreground">CFO</span>
+          <span className="text-[10px] text-muted-foreground/50">|</span>
+          <UserCircle className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className="text-muted-foreground">Sócio</span>
+        </Button>
 
         {/* Dark/Light toggle */}
         <Button

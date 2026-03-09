@@ -36,6 +36,15 @@ import PlanoContas from "./pages/PlanoContas";
 import DiarioContabil from "./pages/DiarioContabil";
 import ReguaCobranca from "./pages/ReguaCobranca";
 import SegurancaConformidade from "./pages/SegurancaConformidade";
+import Onboarding from "./pages/Onboarding";
+import ImportarDados from "./pages/ImportarDados";
+import Provisoes from "./pages/Provisoes";
+import Imobilizado from "./pages/Imobilizado";
+import CentralCredito from "./pages/CentralCredito";
+import Socios from "./pages/Socios";
+import Precificacao from "./pages/Precificacao";
+import ProjetosFinanceiros from "./pages/ProjetosFinanceiros";
+import Metas from "./pages/Metas";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +58,7 @@ const App = () => (
         <MainLayout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/dre" element={<Dre />} />
             <Route path="/balanco" element={<BalancoPatrimonial />} />
             <Route path="/fluxo-caixa" element={<FluxoCaixa />} />
@@ -80,6 +90,14 @@ const App = () => (
             <Route path="/diario-contabil" element={<DiarioContabil />} />
             <Route path="/cobranca" element={<ReguaCobranca />} />
             <Route path="/seguranca" element={<SegurancaConformidade />} />
+            <Route path="/provisoes" element={<Provisoes />} />
+            <Route path="/imobilizado" element={<Imobilizado />} />
+            <Route path="/credito" element={<CentralCredito />} />
+            <Route path="/socios" element={<Socios />} />
+            <Route path="/precificacao" element={<Precificacao />} />
+            <Route path="/projetos" element={<ProjetosFinanceiros />} />
+            <Route path="/metas" element={<Metas />} />
+            <Route path="/importar" element={<ImportarDados />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
