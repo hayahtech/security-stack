@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import Dashboard from "./pages/Dashboard";
+import Dre from "./pages/Dre";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -19,7 +20,7 @@ const App = () => (
         <MainLayout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/dre" element={<PlaceholderPage />} />
+            <Route path="/dre" element={<Dre />} />
             <Route path="/fluxo-caixa" element={<PlaceholderPage />} />
             <Route path="/contas" element={<PlaceholderPage />} />
             <Route path="/liquidez" element={<PlaceholderPage />} />
