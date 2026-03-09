@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bell, ChevronDown, User, Sun, Moon, Wifi } from "lucide-react";
+import { Bell, ChevronDown, User, Sun, Moon, Wifi, Briefcase, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
