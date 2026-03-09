@@ -148,6 +148,7 @@ export function AppSidebar() {
 
       <SidebarContent className="px-2 py-4 space-y-2 overflow-y-auto">
         {renderNavGroup(mainNav, "Principal")}
+        {renderNavGroup(accountingNav, "Contabilidade")}
         {renderNavGroup(indicatorsNav, "Indicadores")}
         {renderNavGroup(operationsNav, "Operacional")}
         {renderNavGroup(analyticsNav, "Analytics")}
