@@ -22,6 +22,7 @@ import {
   ScanText,
   Shield,
   Plug,
+  DollarSign,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -64,6 +65,7 @@ const operationsNav = [
 
 const analyticsNav = [
   { title: "KPIs & ROI", url: "/kpis", icon: Target },
+  { title: "Orçamento Anual", url: "/orcamento", icon: DollarSign },
   { title: "Análise Horizontal/Vertical", url: "/analise-hv", icon: BarChart3 },
   { title: "Projeções & Forecasting", url: "/projecoes", icon: LineChart },
   { title: "Análise de Riscos", url: "/riscos", icon: ShieldAlert },
