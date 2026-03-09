@@ -105,7 +105,7 @@ export function AppSidebar() {
 
   const isActive = (path: string) => currentPath === path;
 
-  const renderNavGroup = (items: typeof mainNav, label: string) => (
+  const renderNavGroup = (items: Array<{ title: string; url: string; icon: any; badge?: string }>, label: string) => (
     <SidebarGroup>
       {!collapsed && <SidebarGroupLabel className="text-xs uppercase tracking-wider text-muted-foreground/70">{label}</SidebarGroupLabel>}
       <SidebarGroupContent>
@@ -125,9 +125,16 @@ export function AppSidebar() {
                 >
                   <item.icon className={`h-4 w-4 flex-shrink-0 ${isActive(item.url) ? 'text-primary' : 'text-sidebar-foreground'}`} />
                   {!collapsed && (
-                    <span className={`text-sm font-data truncate ${isActive(item.url) ? 'text-foreground font-medium' : ''}`}>
-                      {item.title}
-                    </span>
+                    <>
+                      <span className={`text-sm font-data truncate flex-1 ${isActive(item.url) ? 'text-foreground font-medium' : ''}`}>
+                        {item.title}
+                      </span>
+                      {item.badge && (
+                        <span className="ml-auto px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-destructive text-destructive-foreground">
+                          {item.badge}
+                        </span>
+                      )}
+                    </>
                   )}
                 </NavLink>
               </SidebarMenuButton>
