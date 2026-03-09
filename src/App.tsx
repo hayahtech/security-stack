@@ -23,6 +23,7 @@ import NFePage from "./pages/NFe";
 import Custos from "./pages/Custos";
 import Relatorios from "./pages/Relatorios";
 import Configuracoes from "./pages/Configuracoes";
+import CapturaAutomatica from "./pages/CapturaAutomatica";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/nfe" element={<NFePage />} />
             <Route path="/relatorios" element={<Relatorios />} />
             <Route path="/configuracoes" element={<Configuracoes />} />
+            <Route path="/captura" element={<CapturaAutomatica />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>

@@ -19,6 +19,7 @@ import {
   Receipt,
   FileBarChart,
   Settings,
+  ScanText,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -66,6 +67,7 @@ const analyticsNav = [
 ];
 
 const otherNav = [
+  { title: "Captura Automática", url: "/captura", icon: ScanText },
   { title: "Emissão de NF-e", url: "/nfe", icon: Receipt },
   { title: "Relatórios", url: "/relatorios", icon: FileBarChart },
   { title: "Configurações", url: "/configuracoes", icon: Settings },
