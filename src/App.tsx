@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import Dashboard from "./pages/Dashboard";
 import Dre from "./pages/Dre";
+import FluxoCaixa from "./pages/FluxoCaixa";
+import Tesouraria from "./pages/Tesouraria";
+import ConciliacaoBancaria from "./pages/ConciliacaoBancaria";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
