@@ -18,6 +18,10 @@ import CMV from "./pages/CMV";
 import KpisRoi from "./pages/KpisRoi";
 import KpisAvancados from "./pages/KpisAvancados";
 import AnaliseRiscos from "./pages/AnaliseRiscos";
+import Projecoes from "./pages/Projecoes";
+import NFePage from "./pages/NFe";
+import Custos from "./pages/Custos";
+import Relatorios from "./pages/Relatorios";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -42,14 +46,14 @@ const App = () => (
             <Route path="/inadimplencia" element={<Inadimplencia />} />
             <Route path="/tesouraria" element={<Tesouraria />} />
             <Route path="/conciliacao" element={<ConciliacaoBancaria />} />
-            <Route path="/custos" element={<PlaceholderPage />} />
+            <Route path="/custos" element={<Custos />} />
             <Route path="/cmv" element={<CMV />} />
             <Route path="/kpis" element={<KpisAvancados />} />
             <Route path="/analise-hv" element={<PlaceholderPage />} />
-            <Route path="/projecoes" element={<PlaceholderPage />} />
+            <Route path="/projecoes" element={<Projecoes />} />
             <Route path="/riscos" element={<AnaliseRiscos />} />
-            <Route path="/nfe" element={<PlaceholderPage />} />
-            <Route path="/relatorios" element={<PlaceholderPage />} />
+            <Route path="/nfe" element={<NFePage />} />
+            <Route path="/relatorios" element={<Relatorios />} />
             <Route path="/configuracoes" element={<PlaceholderPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
