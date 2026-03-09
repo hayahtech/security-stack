@@ -6,10 +6,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import Dashboard from "./pages/Dashboard";
 import Dre from "./pages/Dre";
+import BalancoPatrimonial from "./pages/BalancoPatrimonial";
 import FluxoCaixa from "./pages/FluxoCaixa";
 import Tesouraria from "./pages/Tesouraria";
 import ConciliacaoBancaria from "./pages/ConciliacaoBancaria";
 import Contas from "./pages/Contas";
+import Contratos from "./pages/Contratos";
 import Inadimplencia from "./pages/Inadimplencia";
 import Liquidez from "./pages/Liquidez";
 import Margem from "./pages/Margem";
@@ -46,8 +48,10 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dre" element={<Dre />} />
+            <Route path="/balanco" element={<BalancoPatrimonial />} />
             <Route path="/fluxo-caixa" element={<FluxoCaixa />} />
             <Route path="/contas" element={<Contas />} />
+            <Route path="/contratos" element={<Contratos />} />
             <Route path="/liquidez" element={<Liquidez />} />
             <Route path="/capital-giro" element={<Liquidez />} />
             <Route path="/margem" element={<Margem />} />
