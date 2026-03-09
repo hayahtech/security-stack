@@ -34,6 +34,8 @@ import SaudeFinanceira from "./pages/SaudeFinanceira";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import PlanoContas from "./pages/PlanoContas";
 import DiarioContabil from "./pages/DiarioContabil";
+import ReguaCobranca from "./pages/ReguaCobranca";
+import SegurancaConformidade from "./pages/SegurancaConformidade";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
