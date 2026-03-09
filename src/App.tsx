@@ -12,6 +12,10 @@ import ConciliacaoBancaria from "./pages/ConciliacaoBancaria";
 import Contas from "./pages/Contas";
 import Inadimplencia from "./pages/Inadimplencia";
 import Liquidez from "./pages/Liquidez";
+import Margem from "./pages/Margem";
+import CicloFinanceiro from "./pages/CicloFinanceiro";
+import CMV from "./pages/CMV";
+import KpisRoi from "./pages/KpisRoi";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
