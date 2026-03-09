@@ -23,6 +23,7 @@ import {
   Shield,
   Plug,
   DollarSign,
+  Heart,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -42,6 +43,7 @@ import {
 
 const mainNav = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Saúde Financeira", url: "/saude", icon: Heart },
   { title: "DRE", url: "/dre", icon: FileText },
   { title: "Fluxo de Caixa", url: "/fluxo-caixa", icon: TrendingUp },
   { title: "Contas a Pagar/Receber", url: "/contas", icon: Wallet },

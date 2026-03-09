@@ -28,6 +28,7 @@ import CentrosCusto from "./pages/CentrosCusto";
 import Governanca from "./pages/Governanca";
 import Integracoes from "./pages/Integracoes";
 import Orcamento from "./pages/Orcamento";
+import SaudeFinanceira from "./pages/SaudeFinanceira";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -66,6 +67,7 @@ const App = () => (
             <Route path="/governanca" element={<Governanca />} />
             <Route path="/integracoes" element={<Integracoes />} />
             <Route path="/orcamento" element={<Orcamento />} />
+            <Route path="/saude" element={<SaudeFinanceira />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>

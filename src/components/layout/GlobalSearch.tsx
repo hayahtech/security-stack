@@ -87,7 +87,7 @@ export function GlobalSearch() {
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-lg p-0 gap-0 overflow-hidden">
+        <DialogContent className="sm:max-w-lg p-0 gap-0 overflow-hidden glass">
           <div className="flex items-center gap-2 px-4 border-b border-border">
             <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
             <Input
@@ -123,6 +123,12 @@ export function GlobalSearch() {
             {filtered.length === 0 && (
               <p className="text-sm text-muted-foreground text-center py-8 font-data">Nenhum resultado encontrado</p>
             )}
+          </div>
+          <div className="flex items-center justify-between px-4 py-2 border-t border-border text-[10px] text-muted-foreground font-data">
+            <span>↑↓ para navegar</span>
+            <span>↵ para selecionar</span>
+            <span>ESC para fechar</span>
+            <span>? para atalhos</span>
           </div>
         </DialogContent>
       </Dialog>
