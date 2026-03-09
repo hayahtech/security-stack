@@ -63,6 +63,7 @@ const App = () => (
             <Route path="/captura" element={<CapturaAutomatica />} />
             <Route path="/centros-custo" element={<CentrosCusto />} />
             <Route path="/governanca" element={<Governanca />} />
+            <Route path="/integracoes" element={<Integracoes />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
