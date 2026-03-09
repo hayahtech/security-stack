@@ -26,6 +26,7 @@ import Configuracoes from "./pages/Configuracoes";
 import CapturaAutomatica from "./pages/CapturaAutomatica";
 import CentrosCusto from "./pages/CentrosCusto";
 import Governanca from "./pages/Governanca";
+import Integracoes from "./pages/Integracoes";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="/captura" element={<CapturaAutomatica />} />
             <Route path="/centros-custo" element={<CentrosCusto />} />
             <Route path="/governanca" element={<Governanca />} />
+            <Route path="/integracoes" element={<Integracoes />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
