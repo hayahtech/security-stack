@@ -57,6 +57,7 @@ const App = () => (
             <Route path="/nfe" element={<NFePage />} />
             <Route path="/relatorios" element={<Relatorios />} />
             <Route path="/configuracoes" element={<Configuracoes />} />
+            <Route path="/captura" element={<CapturaAutomatica />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
