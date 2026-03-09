@@ -1,7 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { Topbar } from "./Topbar";
-import { OnboardingChecklist } from "./OnboardingChecklist";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 
 interface MainLayoutProps {
@@ -20,7 +19,6 @@ function LayoutInner({ children }: MainLayoutProps) {
           {children}
         </main>
       </div>
-      <OnboardingChecklist />
       <ShortcutsDialog />
     </div>
   );
