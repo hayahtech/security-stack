@@ -16,6 +16,8 @@ import Margem from "./pages/Margem";
 import CicloFinanceiro from "./pages/CicloFinanceiro";
 import CMV from "./pages/CMV";
 import KpisRoi from "./pages/KpisRoi";
+import KpisAvancados from "./pages/KpisAvancados";
+import AnaliseRiscos from "./pages/AnaliseRiscos";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
