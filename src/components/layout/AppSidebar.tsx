@@ -28,6 +28,8 @@ import {
   ScrollText,
   Scale,
   FileSignature,
+  Zap,
+  Lock,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -61,6 +63,7 @@ const indicatorsNav = [
   { title: "Margem & Rentabilidade", url: "/margem", icon: PieChart },
   { title: "Ciclo Financeiro", url: "/ciclo", icon: RefreshCcw },
   { title: "Inadimplência", url: "/inadimplencia", icon: AlertTriangle },
+  { title: "Cobrança", url: "/cobranca", icon: Zap, badge: "12" },
 ];
 
 const operationsNav = [
@@ -90,6 +93,7 @@ const otherNav = [
   { title: "Integrações & Automações", url: "/integracoes", icon: Plug },
   { title: "Emissão de NF-e", url: "/nfe", icon: Receipt },
   { title: "Relatórios", url: "/relatorios", icon: FileBarChart },
+  { title: "Segurança", url: "/seguranca", icon: Lock },
   { title: "Configurações", url: "/configuracoes", icon: Settings },
 ];
 

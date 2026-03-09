@@ -78,6 +78,8 @@ const App = () => (
             <Route path="/saude" element={<SaudeFinanceira />} />
             <Route path="/plano-contas" element={<PlanoContas />} />
             <Route path="/diario-contabil" element={<DiarioContabil />} />
+            <Route path="/cobranca" element={<ReguaCobranca />} />
+            <Route path="/seguranca" element={<SegurancaConformidade />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
