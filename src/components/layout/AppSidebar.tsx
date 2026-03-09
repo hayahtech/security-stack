@@ -1,60 +1,27 @@
 import {
-  LayoutDashboard,
-  FileText,
-  TrendingUp,
-  Wallet,
-  Droplets,
-  Landmark,
-  PieChart,
-  RefreshCcw,
-  AlertTriangle,
-  Building2,
-  GitCompare,
-  Calculator,
-  Package,
-  Target,
-  BarChart3,
-  LineChart,
-  ShieldAlert,
-  Receipt,
-  FileBarChart,
-  Settings,
-  ScanText,
-  Shield,
-  Plug,
-  DollarSign,
-  Heart,
-  BookOpen,
-  ScrollText,
-  Scale,
-  FileSignature,
-  Zap,
-  Lock,
+  LayoutDashboard, FileText, TrendingUp, Wallet, Droplets, Landmark, PieChart,
+  RefreshCcw, AlertTriangle, Building2, GitCompare, Calculator, Package, Target,
+  BarChart3, LineChart, ShieldAlert, Receipt, FileBarChart, Settings, ScanText,
+  Shield, Plug, DollarSign, Heart, BookOpen, ScrollText, Scale, FileSignature,
+  Zap, Lock, Users, FolderOpen, CreditCard, Upload, Boxes, Tag, Sparkles,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarHeader,
-  SidebarFooter,
-  useSidebar,
+  Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
+  SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarHeader, SidebarFooter, useSidebar,
 } from "@/components/ui/sidebar";
 
 const mainNav = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { title: "Saúde Financeira", url: "/saude", icon: Heart },
+  { title: "Metas & OKRs", url: "/metas", icon: Target },
   { title: "DRE", url: "/dre", icon: FileText },
   { title: "Balanço Patrimonial", url: "/balanco", icon: Scale },
   { title: "Fluxo de Caixa", url: "/fluxo-caixa", icon: TrendingUp },
   { title: "Contas a Pagar/Receber", url: "/contas", icon: Wallet },
   { title: "Contratos", url: "/contratos", icon: FileSignature },
+  { title: "Projetos", url: "/projetos", icon: FolderOpen },
 ];
 
 const indicatorsNav = [
@@ -68,8 +35,10 @@ const indicatorsNav = [
 
 const operationsNav = [
   { title: "Tesouraria", url: "/tesouraria", icon: Building2 },
+  { title: "Central de Crédito", url: "/credito", icon: CreditCard },
   { title: "Conciliação Bancária", url: "/conciliacao", icon: GitCompare },
   { title: "Custos & Despesas", url: "/custos", icon: Calculator },
+  { title: "Precificação", url: "/precificacao", icon: Tag },
   { title: "Centros de Custo & Rateio", url: "/centros-custo", icon: Target },
   { title: "CMV", url: "/cmv", icon: Package },
 ];
@@ -77,6 +46,8 @@ const operationsNav = [
 const accountingNav = [
   { title: "Diário Contábil", url: "/diario-contabil", icon: ScrollText },
   { title: "Plano de Contas", url: "/plano-contas", icon: BookOpen },
+  { title: "Provisões & Competência", url: "/provisoes", icon: RefreshCcw },
+  { title: "Ativo Imobilizado", url: "/imobilizado", icon: Boxes },
 ];
 
 const analyticsNav = [
@@ -94,6 +65,9 @@ const otherNav = [
   { title: "Emissão de NF-e", url: "/nfe", icon: Receipt },
   { title: "Relatórios", url: "/relatorios", icon: FileBarChart },
   { title: "Segurança", url: "/seguranca", icon: Lock },
+  { title: "Sócios & Distribuição", url: "/socios", icon: Users },
+  { title: "Importar Dados", url: "/importar", icon: Upload },
+  { title: "Onboarding", url: "/onboarding", icon: Sparkles },
   { title: "Configurações", url: "/configuracoes", icon: Settings },
 ];
 
