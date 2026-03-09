@@ -9,6 +9,8 @@ import Dre from "./pages/Dre";
 import FluxoCaixa from "./pages/FluxoCaixa";
 import Tesouraria from "./pages/Tesouraria";
 import ConciliacaoBancaria from "./pages/ConciliacaoBancaria";
+import Contas from "./pages/Contas";
+import Inadimplencia from "./pages/Inadimplencia";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
