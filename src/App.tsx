@@ -22,6 +22,7 @@ import Projecoes from "./pages/Projecoes";
 import NFePage from "./pages/NFe";
 import Custos from "./pages/Custos";
 import Relatorios from "./pages/Relatorios";
+import Configuracoes from "./pages/Configuracoes";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
