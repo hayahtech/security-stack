@@ -34,6 +34,8 @@ import SaudeFinanceira from "./pages/SaudeFinanceira";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import PlanoContas from "./pages/PlanoContas";
 import DiarioContabil from "./pages/DiarioContabil";
+import ReguaCobranca from "./pages/ReguaCobranca";
+import SegurancaConformidade from "./pages/SegurancaConformidade";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -76,6 +78,8 @@ const App = () => (
             <Route path="/saude" element={<SaudeFinanceira />} />
             <Route path="/plano-contas" element={<PlanoContas />} />
             <Route path="/diario-contabil" element={<DiarioContabil />} />
+            <Route path="/cobranca" element={<ReguaCobranca />} />
+            <Route path="/seguranca" element={<SegurancaConformidade />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
