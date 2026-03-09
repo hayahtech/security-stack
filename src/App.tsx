@@ -11,6 +11,7 @@ import Tesouraria from "./pages/Tesouraria";
 import ConciliacaoBancaria from "./pages/ConciliacaoBancaria";
 import Contas from "./pages/Contas";
 import Inadimplencia from "./pages/Inadimplencia";
+import Liquidez from "./pages/Liquidez";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
