@@ -25,6 +25,7 @@ import Relatorios from "./pages/Relatorios";
 import Configuracoes from "./pages/Configuracoes";
 import CapturaAutomatica from "./pages/CapturaAutomatica";
 import CentrosCusto from "./pages/CentrosCusto";
+import Governanca from "./pages/Governanca";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
