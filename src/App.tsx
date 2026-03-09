@@ -25,6 +25,7 @@ import Relatorios from "./pages/Relatorios";
 import Configuracoes from "./pages/Configuracoes";
 import CapturaAutomatica from "./pages/CapturaAutomatica";
 import CentrosCusto from "./pages/CentrosCusto";
+import Governanca from "./pages/Governanca";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 
@@ -60,6 +61,7 @@ const App = () => (
             <Route path="/configuracoes" element={<Configuracoes />} />
             <Route path="/captura" element={<CapturaAutomatica />} />
             <Route path="/centros-custo" element={<CentrosCusto />} />
+            <Route path="/governanca" element={<Governanca />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </MainLayout>
