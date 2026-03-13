@@ -146,7 +146,7 @@ export const projectsData: Project[] = [
       { description: "Prazo de lançamento na App Store pode atrasar", probability: "high", impact: "medium", mitigation: "Submeter versão beta antecipadamente" },
       { description: "Performance em dispositivos Android antigos", probability: "medium", impact: "medium", mitigation: "Testes em device farm + otimização lazy load" },
     ],
-    risks_extra: [],
+    
     cpi: 0.72,
     spi: 0.82,
     eac: 201389,
