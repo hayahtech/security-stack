@@ -1,0 +1,86 @@
+name: DAST — ZAP Nightly Scan
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # 3 AM daily
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  dast-zap:
+    name: OWASP ZAP Dynamic Security Scan
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/staging'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Test Environment
+        run: |
+          # Build and start application (Docker Compose or similar)
+          if [ -f docker-compose.test.yml ]; then
+            docker-compose -f docker-compose.test.yml up -d
+            echo "Waiting for services to be ready..."
+            sleep 15
+            curl -f http://localhost:8080/health || curl -f http://localhost:3000/health || true
+          else
+            echo "Skipping environment setup (no docker-compose.test.yml)"
+          fi
+
+      - name: OWASP ZAP Full Scan
+        uses: zaproxy/action-full-scan@v0.7.0
+        with:
+          target: 'http://localhost:8080'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+        continue-on-error: true
+
+      - name: Parse ZAP Results
+        if: always()
+        run: |
+          if [ -f report_md.md ]; then
+            # Extract high/critical findings
+            CRITICAL=$(grep -c "CRITICAL" report_md.md || echo 0)
+            HIGH=$(grep -c "HIGH" report_md.md || echo 0)
+
+            echo "CRITICAL findings: $CRITICAL"
+            echo "HIGH findings: $HIGH"
+
+            if [ "$CRITICAL" -gt 0 ]; then
+              echo "::error::Found $CRITICAL CRITICAL vulnerabilities in DAST"
+            fi
+          fi
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: zap-report
+          path: |
+            report_html.html
+            report_md.md
+
+      - name: Create Issue if Critical Found
+        if: always() && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '[DAST] ZAP found critical vulnerabilities',
+              body: 'OWASP ZAP nightly scan detected critical issues. Check artifact: zap-report.html\n\nImmidiate action required.',
+              labels: ['security', 'dast', 'critical']
+            });
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup
+        if: always()
+        run: |
+          if [ -f docker-compose.test.yml ]; then
+            docker-compose -f docker-compose.test.yml down
+          fi

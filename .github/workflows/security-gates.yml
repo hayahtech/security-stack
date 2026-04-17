@@ -1,0 +1,143 @@
+name: Security Gates — Claude Code Review + SAST
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main, staging]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+  issues: write
+
+jobs:
+  security-review:
+    name: Claude Code Security Review
+    runs-on: ubuntu-latest
+    outputs:
+      has-critical: ${{ steps.parse.outputs.has-critical }}
+      findings-count: ${{ steps.parse.outputs.findings-count }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Claude Code Security Review
+        id: claude-review
+        uses: anthropics/claude-code-security-review@main
+        with:
+          comment-pr: true
+          claude-api-key: ${{ secrets.CLAUDE_API_KEY }}
+          model: claude-opus-4-7
+          timeout: 300
+          custom-instructions-file: .github/security/custom-rules.md
+          excluded-paths: |
+            node_modules/
+            .git/
+            dist/
+            build/
+            *.lock
+            .next/
+            coverage/
+
+      - name: Parse & Check Severity
+        id: parse
+        if: always()
+        run: |
+          FINDINGS='${{ steps.claude-review.outputs.findings-json }}'
+          CRITICAL=$(echo "$FINDINGS" | jq '[.[] | select(.severity=="CRITICAL")] | length' || echo 0)
+          HIGH=$(echo "$FINDINGS" | jq '[.[] | select(.severity=="HIGH")] | length' || echo 0)
+          TOTAL=$(echo "$FINDINGS" | jq 'length' || echo 0)
+
+          echo "has-critical=$([ "$CRITICAL" -gt 0 ] && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
+          echo "findings-count=$TOTAL" >> $GITHUB_OUTPUT
+          echo "critical-count=$CRITICAL" >> $GITHUB_OUTPUT
+          echo "high-count=$HIGH" >> $GITHUB_OUTPUT
+
+          # Log summary
+          echo "## 🔐 Security Review Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Critical**: $CRITICAL" >> $GITHUB_STEP_SUMMARY
+          echo "- **High**: $HIGH" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total**: $TOTAL" >> $GITHUB_STEP_SUMMARY
+
+      - name: Auto-Create Issues for HIGH Findings
+        if: always() && steps.parse.outputs.high-count > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const findings = '${{ steps.claude-review.outputs.findings-json }}';
+            if (!findings || findings === 'null') return;
+
+            try {
+              const parsed = JSON.parse(findings);
+              const highFindings = parsed.filter(f => f.severity === 'HIGH');
+
+              for (const finding of highFindings) {
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: `[SEC-HIGH] ${finding.title}`,
+                  body: `**Type**: ${finding.type}\n**Severity**: HIGH\n\n${finding.description}\n\n**File**: ${finding.file}`,
+                  labels: ['security', 'high-priority']
+                });
+              }
+            } catch (e) {
+              console.log('No findings to process');
+            }
+
+  semgrep-sast:
+    name: SAST — Semgrep
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/security-audit
+            p/owasp-top-ten
+            p/cwe-top-25
+          generateSarif: true
+          args: --json=semgrep.json
+
+      - name: Check Semgrep Results
+        id: semgrep-check
+        run: |
+          if [ -f semgrep.json ]; then
+            CRITICAL=$(jq '[.results[] | select(.extra.severity=="ERROR")] | length' semgrep.json || echo 0)
+            if [ "$CRITICAL" -gt 0 ]; then
+              echo "::error::Semgrep found $CRITICAL critical issues"
+              exit 1
+            fi
+          fi
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: semgrep.sarif
+
+  security-gate-check:
+    name: Security Gate — Block if Critical
+    needs: security-review
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Enforce Security Gate
+        run: |
+          if [ "${{ needs.security-review.outputs.has-critical }}" == "true" ]; then
+            echo "::error::Security gate FAILED: ${{ needs.security-review.outputs.critical-count }} CRITICAL vulnerabilities found"
+            echo ""
+            echo "Required Actions:"
+            echo "1. Review findings in the PR comments"
+            echo "2. Fix all CRITICAL issues before merge"
+            echo "3. Re-request review after fixes"
+            exit 1
+          else
+            echo "✅ Security gate PASSED: All critical vulnerabilities addressed"
+          fi

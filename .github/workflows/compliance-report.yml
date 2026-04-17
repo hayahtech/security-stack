@@ -1,0 +1,125 @@
+name: Weekly Compliance Report
+
+on:
+  schedule:
+    - cron: '0 9 * * MON' # Monday 9 AM
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  compliance-report:
+    name: Generate Security Compliance Report
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Count Security Issues
+        id: stats
+        run: |
+          # Count security-labeled issues
+          CRITICAL=$(gh issue list --label security --state open --search "label:critical" --json number | jq 'length')
+          HIGH=$(gh issue list --label security --state open --search "severity:high" --json number | jq 'length' || echo 0)
+          OPEN=$(gh issue list --label security --state open --json number | jq 'length')
+          RESOLVED=$(gh issue list --label security --state closed --json number | jq 'length')
+
+          echo "critical=$CRITICAL" >> $GITHUB_OUTPUT
+          echo "high=$HIGH" >> $GITHUB_OUTPUT
+          echo "open=$OPEN" >> $GITHUB_OUTPUT
+          echo "resolved=$RESOLVED" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Generate Report
+        id: report
+        run: |
+          cat > compliance-report.md << 'EOF'
+          # 🔐 Security Compliance Report
+          **Generated**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+
+          ## Summary
+          - **Critical Issues**: ${{ steps.stats.outputs.critical }}
+          - **High Issues**: ${{ steps.stats.outputs.high }}
+          - **Open Issues**: ${{ steps.stats.outputs.open }}
+          - **Resolved (This Period)**: ${{ steps.stats.outputs.resolved }}
+
+          ## Compliance Status
+          - [ ] **LGPD Compliance** - Audit logging, PII protection, data retention
+          - [ ] **GDPR Compliance** - Data processing agreements, right to delete
+          - [ ] **PCI-DSS** (if applicable) - Payment card data handling
+          - [ ] **SOC2** (if applicable) - Access controls, encryption, backups
+
+          ## Last Security Audits
+          - Claude Code Security Review: ${{ github.server_url }}/${{ github.repository }}/actions
+          - Semgrep SAST: ${{ github.server_url }}/${{ github.repository }}/actions
+          - Supply Chain: ${{ github.server_url }}/${{ github.repository }}/actions
+          - Secrets Detection: ${{ github.server_url }}/${{ github.repository }}/actions
+
+          ## Remediation Progress
+          | Severity | Open | In Progress | Resolved | % Complete |
+          |----------|------|-------------|----------|-----------|
+          | CRITICAL | ${{ steps.stats.outputs.critical }} | - | - | 0% |
+          | HIGH | ${{ steps.stats.outputs.high }} | - | - | TBD |
+          | MEDIUM | - | - | - | TBD |
+
+          ## Key Metrics
+          - **Mean Time to Resolution (MTTR)**: TBD
+          - **Security Issues per Sprint**: TBD
+          - **False Positive Rate**: TBD
+
+          ## Next Steps
+          1. Review and prioritize open security issues
+          2. Schedule remediation for HIGH/CRITICAL findings
+          3. Update compliance status
+          4. Plan security hardening initiatives
+
+          ---
+          *This report is auto-generated. For details, see [security-gates workflow](${{ github.server_url }}/${{ github.repository }}/actions)*
+          EOF
+
+          cat compliance-report.md
+
+      - name: Create Issue with Report
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('compliance-report.md', 'utf8');
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[REPORT] Weekly Security Compliance — ${new Date().toISOString().split('T')[0]}`,
+              body: report,
+              labels: ['security', 'report'],
+              assignee: [] // assign to security team if needed
+            });
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Slack Notification
+        if: always()
+        uses: slackapi/slack-github-action@v1.24
+        with:
+          payload: |
+            {
+              "text": "📊 Weekly Security Compliance Report Generated",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Weekly Security Report*\n• Critical: ${{ steps.stats.outputs.critical }}\n• High: ${{ steps.stats.outputs.high }}\n• Open: ${{ steps.stats.outputs.open }}\n• Resolved: ${{ steps.stats.outputs.resolved }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_SECURITY_WEBHOOK }}
+        continue-on-error: true
