@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Agro theme: Gold #D4AF37, Green #4CAF50, White #FFFFFF, Black #212121 */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+
+    /* Green #4CAF50 → HSL(122, 39%, 49%) */
+    --primary: 122 39% 49%;
+    --primary-foreground: 0 0% 100%;
+    /* Green claro #AED581 → HSL(88, 50%, 67%) */
+    --primary-light: 88 50% 67%;
+
+    /* Cinza claro #F5F5F5 → HSL(0, 0%, 96%) */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 13%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    /* Dourado #D4AF37 → HSL(46, 65%, 52%) */
+    --accent: 46 65% 52%;
+    /* Dourado escuro para texto sobre dourado */
+    --accent-foreground: 46 65% 15%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --info: 213 78% 37%;
+    --info-foreground: 0 0% 100%;
+
+    /* Dourado claro #F5D76E → HSL(46, 87%, 70%) */
+    --warning: 46 87% 70%;
+    --warning-foreground: 46 65% 15%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 122 39% 49%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar: #00DF81 */
+    --sidebar-background: 155 100% 44%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 155 100% 30%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 155 80% 38%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 155 60% 36%;
+    --sidebar-ring: 155 100% 44%;
+  }
+
+  /* Dark Mode: #111827 bg, #1F2937 card, #F9FAFB text, #374151 border */
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 20% 98%;
+
+    --card: 217 33% 17%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 149 55% 42%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 149 40% 18%;
+
+    --secondary: 217 25% 22%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 217 25% 20%;
+    --muted-foreground: 215 15% 58%;
+
+    --accent: 37 90% 48%;
+    --accent-foreground: 37 100% 90%;
+
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --info: 213 70% 50%;
+    --info-foreground: 0 0% 100%;
+
+    --warning: 37 90% 48%;
+    --warning-foreground: 37 100% 95%;
+
+    --border: 217 19% 27%;
+    --input: 217 19% 27%;
+    --ring: 149 55% 42%;
+
+    --sidebar-background: 222 47% 7%;
+    --sidebar-foreground: 210 20% 85%;
+    --sidebar-primary: 37 90% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 40% 14%;
+    --sidebar-accent-foreground: 210 20% 85%;
+    --sidebar-border: 217 19% 20%;
+    --sidebar-ring: 37 90% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Focus visible on all interactive elements */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer utilities {
+  /* Smooth transitions for interactive elements */
+  .transition-default {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  /* Mantido por compatibilidade — agora coberto pelo sistema global abaixo */
+  .hover-lift {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md;
+  }
+}
+
+/* Custom scrollbar — Agro palette */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(122 39% 49% / 0.4) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(122 39% 49% / 0.35);
+  border-radius: 9999px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(46 65% 52% / 0.7);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: hsl(149 55% 42% / 0.35);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: hsl(37 90% 48% / 0.7);
+}
+
+.dark * {
+  scrollbar-color: hsl(149 55% 42% / 0.35) transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   INTERACTIVE FEEDBACK — Ressalto + Press global
+   ─────────────────────────────────────────────────────────────────
+   Posicionado FORA dos @layer para ganhar sobre todas as utilities
+   do Tailwind e cobrir 100% dos botões/cards do sistema.
+
+   cubic-bezier(0.34, 1.56, 0.64, 1) → spring com overshoot (bounce)
+   cubic-bezier(0.22, 1, 0.36, 1)    → snap rápido no press/release
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. BOTÕES ─────────────────────────────────────────────────────
+   Cobre: shadcn <Button>, <button> nativo, [role="button"]
+   Exclui: disabled · sidebar menu-button · dropdown menuitem · select option
+────────────────────────────────────────────────────────────────── */
+button:not(:disabled):not([data-sidebar="menu-button"]):not([role="menuitem"]):not([role="option"]),
+[role="button"]:not([aria-disabled="true"]):not([data-sidebar]):not([role="menuitem"]) {
+  transition:
+    transform        220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow       200ms ease,
+    filter           150ms ease,
+    background-color 150ms ease,
+    border-color     150ms ease,
+    color            150ms ease,
+    opacity          200ms ease;
+}
+
+button:not(:disabled):not([data-sidebar="menu-button"]):not([role="menuitem"]):not([role="option"]):hover,
+[role="button"]:not([aria-disabled="true"]):not([data-sidebar]):not([role="menuitem"]):hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+
+button:not(:disabled):not([data-sidebar="menu-button"]):not([role="menuitem"]):not([role="option"]):active,
+[role="button"]:not([aria-disabled="true"]):not([data-sidebar]):not([role="menuitem"]):active {
+  transform: translateY(1px) scale(0.97);
+  filter: brightness(0.95);
+  transition:
+    transform        80ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow       80ms ease,
+    filter           60ms ease,
+    background-color 80ms ease;
+}
+
+/* ── 2. CARDS INTERATIVOS ──────────────────────────────────────────
+   Alvo: divs/lis com cursor-pointer (cards clicáveis do sistema).
+   Exclui: sidebar items · dropdown menus · select options · table rows
+────────────────────────────────────────────────────────────────── */
+div.cursor-pointer:not([data-sidebar]):not([role="menuitem"]):not([role="option"]),
+li.cursor-pointer:not([role="option"]):not([role="menuitem"]) {
+  transition:
+    transform  200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 200ms ease;
+}
+
+div.cursor-pointer:not([data-sidebar]):not([role="menuitem"]):not([role="option"]):hover,
+li.cursor-pointer:not([role="option"]):not([role="menuitem"]):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
+}
+
+.dark div.cursor-pointer:not([data-sidebar]):not([role="menuitem"]):not([role="option"]):hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+div.cursor-pointer:not([data-sidebar]):not([role="menuitem"]):not([role="option"]):active,
+li.cursor-pointer:not([role="option"]):not([role="menuitem"]):active {
+  transform: translateY(1px) scale(0.99);
+  transition:
+    transform  80ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 80ms ease;
+}
