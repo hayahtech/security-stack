@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProfile } from "@/contexts/ProfileContext";
 import { useFazenda } from "@/contexts/FazendaContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import {
   Wallet, ArrowDownCircle, ArrowUpCircle, TrendingUp, TrendingDown,
   Beef, Baby, MilkOff, ArrowLeftRight, Weight, Syringe, Target,
@@ -176,105 +177,143 @@ function CashFlowChart() {
   );
 }
 
-// Mapeamento de categoria → imagem de fundo e variante de cor
-const herdCardMeta: Record<string, { img: string; dark: boolean }> = {
-  "Touros":          { img: "/assets/animais/touros-dark.png",   dark: true  },
-  "Bezerros":        { img: "/assets/animais/bezerros.png",      dark: true  },
-  "Bezerras":        { img: "/assets/animais/bezerros.png",      dark: false },
-  "Novilhos":        { img: "/assets/animais/vacas-dark.png",    dark: true  },
-  "Novilhas":        { img: "/assets/animais/vacas-light.png",   dark: false },
-  "Nov. Reposição":  { img: "/assets/animais/vacas-light.png",   dark: false },
-  "Vacas":           { img: "/assets/animais/vacas-dark.png",    dark: true  },
-  "Vacas Prenhas":   { img: "/assets/animais/vacas-light.png",   dark: false },
-  "Total Rebanho":   { img: "/assets/animais/rebanho-dark.png",  dark: true  },
-};
+function HerdPremiumCard({
+  label,
+  count,
+  variation,
+  imgLight,
+  imgDark,
+  theme,
+  onClick,
+}: {
+  label: string;
+  count: number;
+  variation: number;
+  imgLight: string;
+  imgDark: string;
+  theme: "light" | "dark";
+  onClick?: () => void;
+}) {
+  const img = theme === "dark" ? imgDark : imgLight;
+  const isDark = theme === "dark";
 
-function HerdCard({ label, count, variation }: { label: string; count: number; variation: number }) {
-  const meta = herdCardMeta[label] ?? { img: "/assets/animais/rebanho-dark.png", dark: true };
-  const { img, dark } = meta;
+  const overlayGradient = isDark
+    ? "linear-gradient(to right, rgba(8,16,8,0.96) 0%, rgba(8,16,8,0.93) 42%, rgba(8,16,8,0.4) 58%, transparent 72%)"
+    : "linear-gradient(to right, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.94) 42%, rgba(255,255,255,0.35) 58%, transparent 72%)";
 
-  const isTotal = label === "Total Rebanho";
+  const variationColor =
+    variation > 0 ? "text-emerald-500" : variation < 0 ? "text-red-500" : "text-muted-foreground";
 
   return (
     <div
-      className={`
-        relative overflow-hidden rounded-2xl h-[110px] select-none
-        ${dark
-          ? "bg-[#0e1208] border border-[#2a3a10]/60"
-          : "bg-white border border-amber-100/80"}
-        shadow-md hover:shadow-lg hover:scale-[1.015] transition-all duration-200 cursor-default
-      `}
+      className="relative overflow-hidden rounded-xl h-28 cursor-pointer group transition-transform hover:scale-[1.02] hover:shadow-xl"
+      onClick={onClick}
     >
-      {/* ── Faixa verde inferior (acento) */}
-      <div className={`absolute bottom-0 left-0 right-0 h-[3px] ${dark ? "bg-gradient-to-r from-green-700 via-green-500 to-transparent" : "bg-gradient-to-r from-green-600 via-green-400 to-transparent"}`} />
-
-      {/* ── Linha diagonal dourada */}
+      {/* Background image */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+        style={{ backgroundImage: `url(${img})` }}
+      />
+
+      {/* Gradient overlay — cobre o número "baked-in", expõe a foto à direita */}
+      <div className="absolute inset-0" style={{ background: overlayGradient }} />
+
+      {/* Fio dourado vertical em ~52% */}
+      <div
+        className="absolute top-0 bottom-0 w-px"
         style={{
-          background: `linear-gradient(
-            to bottom right,
-            transparent 0%,
-            transparent calc(45% - 1px),
-            ${dark ? "rgba(201,168,76,0.55)" : "rgba(180,140,30,0.45)"} calc(45% - 1px),
-            ${dark ? "rgba(201,168,76,0.55)" : "rgba(180,140,30,0.45)"} calc(45% + 1px),
-            transparent calc(45% + 1px)
-          )`,
+          left: "52%",
+          background: "linear-gradient(to bottom, transparent 0%, #C9950A 20%, #F0C040 50%, #C9950A 80%, transparent 100%)",
+          opacity: 0.7,
         }}
       />
 
-      {/* ── Foto (lado direito, clip diagonal) */}
-      <div
-        className="absolute right-0 top-0 bottom-0 w-[58%]"
-        style={{ clipPath: "polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
-      >
-        <img
-          src={img}
-          alt={label}
-          className="w-full h-full object-cover object-center"
-          style={{ filter: dark ? "brightness(0.82) contrast(1.05)" : "brightness(0.95)" }}
-          draggable={false}
-        />
-        {/* gradiente de fusão foto↔fundo */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: dark
-              ? "linear-gradient(to right, rgba(14,18,8,0.55) 0%, transparent 40%)"
-              : "linear-gradient(to right, rgba(255,255,255,0.5) 0%, transparent 40%)",
-          }}
-        />
-      </div>
-
-      {/* ── Conteúdo textual (lado esquerdo) */}
-      <div className="absolute inset-0 flex flex-col justify-center pl-5 pr-[46%]">
+      {/* Dados ao vivo — lado esquerdo */}
+      <div className="relative z-10 flex flex-col justify-center h-full px-4 gap-0.5" style={{ width: "52%" }}>
         <p
-          className={`font-display font-black leading-none tracking-tight
-            ${isTotal ? "text-[2.4rem]" : "text-[2.2rem]"}
-            ${dark ? "text-amber-400" : "text-amber-600"}
-          `}
-          style={{ textShadow: dark ? "0 2px 8px rgba(0,0,0,0.6)" : "none" }}
-        >
-          {count.toLocaleString("pt-BR")}
-        </p>
-        <p
-          className={`text-[10px] font-bold uppercase tracking-[0.18em] mt-1 truncate
-            ${dark ? "text-amber-300/70" : "text-amber-700/70"}`}
+          className="text-[10px] font-bold tracking-[0.2em] uppercase"
+          style={{ color: isDark ? "#C9950A" : "#9A6F00" }}
         >
           {label}
         </p>
-
-        {/* badge de variação */}
+        <p
+          className="text-3xl font-bold leading-none"
+          style={{
+            fontFamily: "var(--font-display, inherit)",
+            color: isDark ? "#F0C040" : "#B8860B",
+            textShadow: isDark ? "0 0 20px rgba(240,192,64,0.3)" : "none",
+          }}
+        >
+          {count.toLocaleString("pt-BR")}
+        </p>
         {variation !== 0 && (
-          <span
-            className={`mt-2 inline-flex items-center gap-0.5 text-[10px] font-semibold px-1.5 py-0.5 rounded-full w-fit
-              ${variation > 0
-                ? "bg-emerald-500/20 text-emerald-400"
-                : "bg-red-500/20 text-red-400"
-              }`}
-          >
-            {variation > 0 ? "▲" : "▼"} {Math.abs(variation)}
-          </span>
+          <p className={`text-[10px] font-semibold ${variationColor}`}>
+            {variation > 0 ? "▲" : "▼"} {Math.abs(variation)} este mês
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function HerdCompactCard({
+  label,
+  count,
+  variation,
+  theme,
+  onClick,
+}: {
+  label: string;
+  count: number;
+  variation: number;
+  theme: "light" | "dark";
+  onClick?: () => void;
+}) {
+  const isDark = theme === "dark";
+  const variationColor =
+    variation > 0 ? "text-emerald-500" : variation < 0 ? "text-red-500" : "text-muted-foreground";
+
+  return (
+    <div
+      className="relative overflow-hidden rounded-xl h-28 cursor-pointer group transition-transform hover:scale-[1.02] hover:shadow-xl border border-border"
+      style={{
+        background: isDark
+          ? "linear-gradient(135deg, #0a150a 0%, #1a2a12 100%)"
+          : "linear-gradient(135deg, #f8fdf4 0%, #edf7e6 100%)",
+      }}
+      onClick={onClick}
+    >
+      {/* Acento verde radial canto inferior direito */}
+      <div
+        className="absolute bottom-0 right-0 w-16 h-16 opacity-30"
+        style={{ background: "radial-gradient(circle at bottom right, #22c55e 0%, transparent 70%)" }}
+      />
+      {/* Acento dourado canto superior direito */}
+      <div
+        className="absolute top-0 right-0 w-12 h-full opacity-20"
+        style={{ background: "linear-gradient(to bottom left, #F0C040 0%, transparent 60%)" }}
+      />
+
+      <div className="relative z-10 flex flex-col justify-center h-full px-4 gap-0.5">
+        <p
+          className="text-[10px] font-bold tracking-[0.2em] uppercase"
+          style={{ color: isDark ? "#C9950A" : "#9A6F00" }}
+        >
+          {label}
+        </p>
+        <p
+          className="text-3xl font-bold leading-none"
+          style={{
+            color: isDark ? "#F0C040" : "#B8860B",
+            textShadow: isDark ? "0 0 20px rgba(240,192,64,0.25)" : "none",
+          }}
+        >
+          {count.toLocaleString("pt-BR")}
+        </p>
+        {variation !== 0 && (
+          <p className={`text-[10px] font-semibold ${variationColor}`}>
+            {variation > 0 ? "▲" : "▼"} {Math.abs(variation)} este mês
+          </p>
         )}
       </div>
     </div>
@@ -282,11 +321,92 @@ function HerdCard({ label, count, variation }: { label: string; count: number; v
 }
 
 function HerdGrid() {
+  const navigate = useNavigate();
+  const { theme } = useTheme();
+
+  const featuredCards = [
+    {
+      label: "Total Rebanho",
+      count: herdData.find((h) => h.label === "Total Rebanho")!.count,
+      variation: herdData.find((h) => h.label === "Total Rebanho")!.variation,
+      imgLight: "/imagens/rebanho-light.png",
+      imgDark: "/imagens/rebanho-dark.png",
+      route: "/rebanho/animais",
+      span: "lg:col-span-2",
+    },
+    {
+      label: "Vacas",
+      count:
+        (herdData.find((h) => h.label === "Vacas")?.count ?? 0) +
+        (herdData.find((h) => h.label === "Vacas Prenhas")?.count ?? 0),
+      variation:
+        (herdData.find((h) => h.label === "Vacas")?.variation ?? 0) +
+        (herdData.find((h) => h.label === "Vacas Prenhas")?.variation ?? 0),
+      imgLight: "/imagens/vacas-light.png",
+      imgDark: "/imagens/vacas-dark.png",
+      route: "/rebanho/animais",
+      span: "",
+    },
+    {
+      label: "Touros",
+      count: herdData.find((h) => h.label === "Touros")!.count,
+      variation: herdData.find((h) => h.label === "Touros")!.variation,
+      imgLight: "/imagens/touros-light.png",
+      imgDark: "/imagens/touros-dark.png",
+      route: "/rebanho/animais",
+      span: "",
+    },
+    {
+      label: "Bezerros",
+      count:
+        (herdData.find((h) => h.label === "Bezerros")?.count ?? 0) +
+        (herdData.find((h) => h.label === "Bezerras")?.count ?? 0),
+      variation:
+        (herdData.find((h) => h.label === "Bezerros")?.variation ?? 0) +
+        (herdData.find((h) => h.label === "Bezerras")?.variation ?? 0),
+      imgLight: "/imagens/bezerros-dark.png",
+      imgDark: "/imagens/bezerros-dark.png",
+      route: "/rebanho/animais",
+      span: "",
+    },
+  ];
+
+  const compactCards = herdData.filter((h) =>
+    ["Novilhos", "Novilhas", "Nov. Reposição", "Vacas Prenhas"].includes(h.label),
+  );
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-      {herdData.map((h) => (
-        <HerdCard key={h.label} label={h.label} count={h.count} variation={h.variation} />
-      ))}
+    <div className="space-y-3">
+      {/* Cards premium com foto */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {featuredCards.map((c) => (
+          <div key={c.label} className={c.span}>
+            <HerdPremiumCard
+              label={c.label}
+              count={c.count}
+              variation={c.variation}
+              imgLight={c.imgLight}
+              imgDark={c.imgDark}
+              theme={theme}
+              onClick={() => navigate(c.route)}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Cards compactos — categorias sem foto dedicada */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {compactCards.map((h) => (
+          <HerdCompactCard
+            key={h.label}
+            label={h.label}
+            count={h.count}
+            variation={h.variation}
+            theme={theme}
+            onClick={() => navigate("/rebanho/animais")}
+          />
+        ))}
+      </div>
     </div>
   );
 }
