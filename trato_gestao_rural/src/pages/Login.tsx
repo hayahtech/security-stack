@@ -75,7 +75,7 @@ export default function Login() {
       } else {
         if (!password) { setError('Insira sua senha'); setLoading(false); return; }
         const result = await signInWithEmail(email, password);
-        if (result?.user) navigate(onboardingCompleted ? '/' : '/onboarding');
+        if (!result?.error) navigate(onboardingCompleted ? '/' : '/onboarding');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao entrar. Tente novamente.');
