@@ -1,0 +1,167 @@
+/* ═══════════════════════════════════════════════════════════════
+   CheckFlow Pro — Design System Variables
+   Premium SaaS Dark Mode with Glassmorphism
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Background ──────────────────────────────────── */
+  --bg-primary: #06060f;
+  --bg-secondary: #0c0c1d;
+  --bg-tertiary: #12122a;
+  --bg-surface: rgba(255, 255, 255, 0.04);
+  --bg-surface-hover: rgba(255, 255, 255, 0.07);
+  --bg-surface-active: rgba(255, 255, 255, 0.10);
+  --bg-elevated: rgba(255, 255, 255, 0.06);
+
+  /* ── Glass Effect ────────────────────────────────── */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  --glass-blur: blur(20px);
+  --glass-blur-heavy: blur(40px);
+
+  /* ── Text ────────────────────────────────────────── */
+  --text-primary: #f0f0f8;
+  --text-secondary: rgba(240, 240, 248, 0.6);
+  --text-tertiary: rgba(240, 240, 248, 0.4);
+  --text-disabled: rgba(240, 240, 248, 0.25);
+  --text-inverse: #06060f;
+
+  /* ── Accent Colors ───────────────────────────────── */
+  --purple: #8b5cf6;
+  --purple-light: #a78bfa;
+  --purple-dark: #6d28d9;
+  --purple-glow: rgba(139, 92, 246, 0.3);
+
+  --blue: #3b82f6;
+  --blue-light: #60a5fa;
+  --blue-dark: #2563eb;
+  --blue-glow: rgba(59, 130, 246, 0.3);
+
+  --cyan: #06b6d4;
+  --cyan-light: #22d3ee;
+  --cyan-dark: #0891b2;
+  --cyan-glow: rgba(6, 182, 212, 0.3);
+
+  --green: #22c55e;
+  --green-light: #4ade80;
+  --green-dark: #16a34a;
+  --green-glow: rgba(34, 197, 94, 0.3);
+
+  --orange: #f59e0b;
+  --orange-light: #fbbf24;
+  --orange-dark: #d97706;
+  --orange-glow: rgba(245, 158, 11, 0.3);
+
+  --red: #ef4444;
+  --red-light: #f87171;
+  --red-dark: #dc2626;
+  --red-glow: rgba(239, 68, 68, 0.3);
+
+  --pink: #ec4899;
+  --pink-light: #f472b6;
+  --pink-dark: #db2777;
+
+  --yellow: #eab308;
+
+  /* ── Gradients ───────────────────────────────────── */
+  --gradient-purple-blue: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  --gradient-blue-cyan: linear-gradient(135deg, #3b82f6, #06b6d4);
+  --gradient-green-cyan: linear-gradient(135deg, #22c55e, #06b6d4);
+  --gradient-orange-yellow: linear-gradient(135deg, #f59e0b, #eab308);
+  --gradient-red-orange: linear-gradient(135deg, #ef4444, #f59e0b);
+  --gradient-red-pink: linear-gradient(135deg, #ef4444, #ec4899);
+  --gradient-purple-pink: linear-gradient(135deg, #8b5cf6, #ec4899);
+  --gradient-cyan-green: linear-gradient(135deg, #06b6d4, #22c55e);
+  --gradient-gray-blue: linear-gradient(135deg, #64748b, #3b82f6);
+  --gradient-gray-green: linear-gradient(135deg, #64748b, #22c55e);
+  --gradient-blue-purple: linear-gradient(135deg, #3b82f6, #8b5cf6);
+
+  /* ── Sector Gradients ────────────────────────────── */
+  --sector-rh: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  --sector-almoxarifado: linear-gradient(135deg, #3b82f6, #06b6d4);
+  --sector-sinistros: linear-gradient(135deg, #ef4444, #f59e0b);
+  --sector-dvpr: linear-gradient(135deg, #06b6d4, #22c55e);
+  --sector-guarita: linear-gradient(135deg, #f59e0b, #eab308);
+  --sector-maquinas: linear-gradient(135deg, #64748b, #3b82f6);
+  --sector-reunioes: linear-gradient(135deg, #8b5cf6, #ec4899);
+  --sector-seguranca: linear-gradient(135deg, #ef4444, #ec4899);
+  --sector-ti: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --sector-vigilancia: linear-gradient(135deg, #64748b, #22c55e);
+
+  /* ── Shadows ─────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-glow-purple: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 60px rgba(139, 92, 246, 0.05);
+  --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.15), 0 0 60px rgba(59, 130, 246, 0.05);
+  --shadow-glow-green: 0 0 20px rgba(34, 197, 94, 0.15), 0 0 60px rgba(34, 197, 94, 0.05);
+  --shadow-glow-orange: 0 0 20px rgba(245, 158, 11, 0.15), 0 0 60px rgba(245, 158, 11, 0.05);
+  --shadow-glow-red: 0 0 20px rgba(239, 68, 68, 0.15), 0 0 60px rgba(239, 68, 68, 0.05);
+
+  /* ── Typography ──────────────────────────────────── */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  /* ── Spacing ─────────────────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* ── Border Radius ───────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* ── Layout ──────────────────────────────────────── */
+  --sidebar-width: 280px;
+  --sidebar-collapsed: 72px;
+  --header-height: 64px;
+  --content-max-width: 1400px;
+
+  /* ── Z-Index ─────────────────────────────────────── */
+  --z-sidebar: 100;
+  --z-header: 90;
+  --z-modal-backdrop: 200;
+  --z-modal: 210;
+  --z-toast: 300;
+  --z-tooltip: 400;
+
+  /* ── Transitions ─────────────────────────────────── */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}

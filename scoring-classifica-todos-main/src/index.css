@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 213 39% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 213 39% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 39% 15%;
+
+    --primary: 213 54% 24%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 30% 93%;
+    --secondary-foreground: 213 39% 15%;
+
+    --muted: 210 25% 95%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 199 89% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 25% 89%;
+    --input: 214 25% 89%;
+    --ring: 213 54% 24%;
+
+    --radius: 0.625rem;
+
+    --sidebar-background: 213 54% 18%;
+    --sidebar-foreground: 210 30% 90%;
+    --sidebar-primary: 199 89% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 213 50% 25%;
+    --sidebar-accent-foreground: 210 30% 95%;
+    --sidebar-border: 213 45% 28%;
+    --sidebar-ring: 199 89% 48%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --chart-1: 199 89% 48%;
+    --chart-2: 142 71% 45%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  .dark {
+    --background: 213 39% 8%;
+    --foreground: 210 30% 93%;
+
+    --card: 213 39% 12%;
+    --card-foreground: 210 30% 93%;
+
+    --popover: 213 39% 12%;
+    --popover-foreground: 210 30% 93%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 213 35% 18%;
+    --secondary-foreground: 210 30% 93%;
+
+    --muted: 213 35% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 199 89% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 213 35% 22%;
+    --input: 213 35% 22%;
+    --ring: 199 89% 48%;
+
+    --sidebar-background: 213 39% 6%;
+    --sidebar-foreground: 210 30% 85%;
+    --sidebar-primary: 199 89% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 213 35% 15%;
+    --sidebar-accent-foreground: 210 30% 93%;
+    --sidebar-border: 213 35% 15%;
+    --sidebar-ring: 199 89% 48%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --chart-1: 199 89% 48%;
+    --chart-2: 142 71% 45%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}

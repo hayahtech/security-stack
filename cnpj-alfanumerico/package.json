@@ -1,0 +1,15 @@
+{
+  "name": "cnpj-alfanumerico",
+  "version": "1.0.0",
+  "description": "Validação e cálculo de DV do CNPJ alfanumérico (IN RFB 2.119/2022).",
+  "type": "module",
+  "main": "src/cnpj.ts",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__supabase__list_tables",
+      "mcp__supabase__get_project_url",
+      "mcp__supabase__apply_migration",
+      "mcp__supabase__execute_sql",
+      "WebFetch(domain:www.jsdelivr.com)",
+      "WebFetch(domain:data.jsdelivr.com)",
+      "WebFetch(domain:api.cdnjs.com)",
+      "WebFetch(domain:cdnjs.cloudflare.com)",
+      "WebFetch(domain:cdn.jsdelivr.net)",
+      "WebFetch(domain:www.srihash.org)",
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js\")",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js\" -o /tmp/chart.umd.min.js)",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.103.0/dist/umd/supabase.js\" -o /tmp/supabase.js)",
+      "Bash(openssl dgst:*)",
+      "Bash(echo \"chart.js sha384: sha384-$\\(openssl dgst -sha384 -binary /tmp/chart.umd.min.js)",
+      "Bash(grep -v '^\\\\.$')",
+      "Bash(wc -l \"C:\\\\renatorad\\\\HayaH\\\\Projetos\\\\on\\\\Checklist-main/src/js\"/*.js \"C:\\\\renatorad\\\\HayaH\\\\Projetos\\\\on\\\\Checklist-main/src/js/lib\"/*.js \"C:\\\\renatorad\\\\HayaH\\\\Projetos\\\\on\\\\Checklist-main/src/js/utils\"/*.js \"C:\\\\renatorad\\\\HayaH\\\\Projetos\\\\on\\\\Checklist-main/src/js/data\"/*.js)"
+    ]
+  }
+}

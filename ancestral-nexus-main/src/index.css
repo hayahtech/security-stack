@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 15% 96%;
+    --foreground: 220 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
+
+    --primary: 270 80% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 92%;
+    --secondary-foreground: 220 15% 25%;
+
+    --muted: 220 14% 90%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 195 100% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 13% 85%;
+    --input: 220 13% 85%;
+    --ring: 270 80% 60%;
+
+    --radius: 0.75rem;
+
+    --emerald: 162 80% 40%;
+    --neon: 270 80% 60%;
+    --electric-blue: 195 100% 40%;
+
+    --glass-bg: 0 0% 100% / 0.7;
+    --glass-border: 220 13% 80% / 0.5;
+    --glass-glow: 270 80% 60% / 0.15;
+
+    --sidebar-background: 220 15% 98%;
+    --sidebar-foreground: 220 15% 25%;
+    --sidebar-primary: 270 80% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 93%;
+    --sidebar-accent-foreground: 220 15% 25%;
+    --sidebar-border: 220 13% 88%;
+    --sidebar-ring: 270 80% 60%;
+
+    --font-display: 'Orbitron', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  .dark {
+    --background: 0 0% 12%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 16%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 16%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 270 80% 70%;
+    --primary-foreground: 0 0% 5%;
+
+    --secondary: 0 0% 22%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 0 0% 25%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 195 100% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 28%;
+    --input: 0 0% 28%;
+    --ring: 270 80% 70%;
+
+    --emerald: 162 100% 55%;
+    --neon: 270 80% 70%;
+    --electric-blue: 195 100% 55%;
+
+    --glass-bg: 0 0% 18% / 0.7;
+    --glass-border: 0 0% 100% / 0.15;
+    --glass-glow: 270 80% 70% / 0.2;
+
+    --sidebar-background: 0 0% 14%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 270 80% 70%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 0 0% 22%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 0 0% 28%;
+    --sidebar-ring: 270 80% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: hsla(var(--glass-bg));
+    border: 1px solid hsla(var(--glass-border));
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .glass-panel-neon {
+    background: hsla(var(--glass-bg));
+    border: 1px solid hsla(var(--glass-glow));
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 0 30px -10px hsla(var(--neon) / 0.2);
+  }
+
+  .glow-neon {
+    box-shadow: 0 0 20px hsla(var(--neon) / 0.3), 0 0 60px hsla(var(--neon) / 0.1);
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 20px hsla(var(--electric-blue) / 0.3), 0 0 60px hsla(var(--electric-blue) / 0.1);
+  }
+
+  .glow-emerald {
+    box-shadow: 0 0 20px hsla(var(--emerald) / 0.3), 0 0 60px hsla(var(--emerald) / 0.1);
+  }
+
+  .text-gradient-neon {
+    background: linear-gradient(135deg, hsl(var(--neon)), hsl(280 90% 75%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-blue {
+    background: linear-gradient(135deg, hsl(var(--electric-blue)), hsl(200 100% 65%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .node-glow {
+    filter: drop-shadow(0 0 8px hsla(var(--neon) / 0.5));
+  }
+
+  .node-glow-blue {
+    filter: drop-shadow(0 0 8px hsla(var(--electric-blue) / 0.5));
+  }
+
+  .connection-line {
+    stroke: hsla(var(--neon) / 0.3);
+    stroke-width: 1.5;
+  }
+
+  .connection-line-active {
+    stroke: hsl(var(--neon));
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 6px hsla(var(--neon) / 0.6));
+  }
+
+  .scanline {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsla(0 0% 50% / 0.02) 2px,
+      hsla(0 0% 50% / 0.02) 4px
+    );
+    pointer-events: none;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(hsla(0 0% 50% / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsla(0 0% 50% / 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+}
+
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Modern scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsla(var(--foreground) / 0.15);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsla(var(--foreground) / 0.25);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsla(var(--foreground) / 0.15) transparent;
+}

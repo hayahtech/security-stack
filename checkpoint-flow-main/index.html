@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Content Security Policy: mitiga XSS bloqueando scripts externos não autorizados -->
+    <!-- Em produção, o header HTTP do vercel.json sobrepõe esta meta tag (mais autoritativo). -->
+    <!-- 'unsafe-inline' em style-src é necessário para inline styles do React (style={{}}).   -->
+    <!-- worker-src blob: é necessário para o Service Worker gerado pelo Vite PWA plugin.      -->
+    <!-- upgrade-insecure-requests: força HTTP → HTTPS automaticamente no browser.             -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;" />
+    <title>Checkpoint Flow</title>
+    <meta name="description" content="Sistema de checklists operacionais para logística" />
+    <meta name="author" content="HayaH Tech Systems" />
+
+    <meta property="og:title" content="Checkpoint Flow" />
+    <meta property="og:description" content="Sistema de checklists operacionais para logística" />
+    <meta property="og:type" content="website" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

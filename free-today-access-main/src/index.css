@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 30% 98%;
+    --foreground: 15 25% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 15 25% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 15 25% 12%;
+
+    --primary: 0 84% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 25 95% 53%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 30 20% 94%;
+    --muted-foreground: 15 10% 45%;
+
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 25 20% 88%;
+    --input: 25 20% 88%;
+    --ring: 0 84% 55%;
+
+    --radius: 0.75rem;
+
+    --chart-1: 0 84% 55%;
+    --chart-2: 25 95% 53%;
+    --chart-3: 45 93% 47%;
+    --chart-4: 150 60% 40%;
+    --chart-5: 200 70% 50%;
+
+    --sidebar-background: 15 20% 96%;
+    --sidebar-foreground: 15 25% 20%;
+    --sidebar-primary: 0 84% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 25 40% 92%;
+    --sidebar-accent-foreground: 15 25% 15%;
+    --sidebar-border: 25 20% 90%;
+    --sidebar-ring: 0 84% 55%;
+
+    --success: 150 60% 40%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 93% 47%;
+    --warning-foreground: 15 25% 12%;
+  }
+
+  .dark {
+    --background: 220 15% 8%;
+    --foreground: 220 10% 92%;
+
+    --card: 220 14% 11%;
+    --card-foreground: 220 10% 92%;
+
+    --popover: 220 14% 11%;
+    --popover-foreground: 220 10% 92%;
+
+    --primary: 0 84% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 25 95% 53%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 12% 16%;
+    --muted-foreground: 220 8% 55%;
+
+    --accent: 25 80% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 10% 18%;
+    --input: 220 10% 18%;
+    --ring: 0 84% 55%;
+
+    --chart-1: 0 84% 60%;
+    --chart-2: 25 95% 58%;
+    --chart-3: 45 93% 52%;
+    --chart-4: 150 60% 45%;
+    --chart-5: 200 70% 55%;
+
+    --sidebar-background: 220 14% 9%;
+    --sidebar-foreground: 220 8% 85%;
+    --sidebar-primary: 0 84% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 12% 15%;
+    --sidebar-accent-foreground: 220 8% 85%;
+    --sidebar-border: 220 10% 16%;
+    --sidebar-ring: 0 84% 55%;
+
+    --success: 150 60% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 93% 52%;
+    --warning-foreground: 220 15% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+.export-mode {
+  background: white !important;
+  color: black !important;
+  padding: 24px !important;
+}
+.export-mode * {
+  color: black !important;
+  border-color: #e5e7eb !important;
+}
+
+/* PWA & Mobile Touch Optimizations */
+@media (max-width: 768px) {
+  /* Larger touch targets */
+  button, [role="button"], a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent text selection on interactive elements */
+  button, [role="button"] {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Smooth scrolling */
+  .overflow-y-auto, .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Safe area padding for notched devices */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* Standalone PWA mode */
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+/* Pull to refresh indicator */
+.pull-refresh-indicator {
+  transition: transform 0.2s ease;
+}
+
+/* Swipe action styles */
+.swipe-container {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-content {
+  transition: transform 0.3s ease;
+  touch-action: pan-y;
+}

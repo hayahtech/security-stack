@@ -48,15 +48,15 @@
 
     --radius: 0.75rem;
 
-    /* Sidebar: #00DF81 */
-    --sidebar-background: 155 100% 44%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 155 100% 30%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 155 80% 38%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 155 60% 36%;
-    --sidebar-ring: 155 100% 44%;
+    /* Sidebar: verde floresta escuro — tom dos cards de rebanho */
+    --sidebar-background: 120 40% 7%;
+    --sidebar-foreground: 0 0% 92%;
+    --sidebar-primary: 46 88% 42%;
+    --sidebar-primary-foreground: 40 100% 8%;
+    --sidebar-accent: 120 32% 13%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 120 25% 16%;
+    --sidebar-ring: 46 88% 42%;
   }
 
   /* Dark Mode: #111827 bg, #1F2937 card, #F9FAFB text, #374151 border */
@@ -96,14 +96,14 @@
     --input: 217 19% 27%;
     --ring: 149 55% 42%;
 
-    --sidebar-background: 222 47% 7%;
-    --sidebar-foreground: 210 20% 85%;
-    --sidebar-primary: 37 90% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 40% 14%;
-    --sidebar-accent-foreground: 210 20% 85%;
-    --sidebar-border: 217 19% 20%;
-    --sidebar-ring: 37 90% 48%;
+    --sidebar-background: 120 42% 5%;
+    --sidebar-foreground: 0 0% 88%;
+    --sidebar-primary: 46 90% 46%;
+    --sidebar-primary-foreground: 40 100% 8%;
+    --sidebar-accent: 120 30% 11%;
+    --sidebar-accent-foreground: 0 0% 85%;
+    --sidebar-border: 120 22% 14%;
+    --sidebar-ring: 46 90% 46%;
   }
 }
 

@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 214 25% 95%;
+    --foreground: 214 55% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 214 55% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 214 55% 13%;
+
+    --primary: 214 55% 13%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 214 25% 93%;
+    --secondary-foreground: 214 55% 13%;
+
+    --muted: 214 20% 94%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 43 96% 56%;
+    --accent-foreground: 214 55% 13%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 0% / 0.05;
+    --input: 214 32% 91%;
+    --ring: 43 96% 56%;
+
+    --radius: 16px;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 214 10% 40%;
+    --sidebar-primary: 214 55% 13%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 214 25% 95%;
+    --sidebar-accent-foreground: 214 55% 13%;
+    --sidebar-border: 0 0% 0% / 0.05;
+    --sidebar-ring: 43 96% 56%;
+
+    --kevar-navy: 214 55% 13%;
+    --kevar-amber: 43 96% 56%;
+    --kevar-bg: 214 25% 95%;
+    --kevar-header: 210 29% 55%;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 210 40% 90%;
+
+    --card: 220 20% 14%;
+    --card-foreground: 210 40% 90%;
+
+    --popover: 220 20% 14%;
+    --popover-foreground: 210 40% 90%;
+
+    --primary: 43 96% 56%;
+    --primary-foreground: 220 20% 10%;
+
+    --secondary: 220 20% 18%;
+    --secondary-foreground: 210 40% 90%;
+
+    --muted: 220 15% 20%;
+    --muted-foreground: 215 16% 60%;
+
+    --accent: 43 96% 56%;
+    --accent-foreground: 220 20% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 22%;
+    --input: 220 15% 22%;
+    --ring: 43 96% 56%;
+
+    --sidebar-background: 220 20% 12%;
+    --sidebar-foreground: 215 16% 60%;
+    --sidebar-primary: 43 96% 56%;
+    --sidebar-primary-foreground: 220 20% 10%;
+    --sidebar-accent: 220 20% 16%;
+    --sidebar-accent-foreground: 210 40% 90%;
+    --sidebar-border: 220 15% 22%;
+    --sidebar-ring: 43 96% 56%;
+
+    --kevar-navy: 210 40% 90%;
+    --kevar-amber: 43 96% 56%;
+    --kevar-bg: 220 20% 10%;
+    --kevar-header: 220 20% 18%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+  }
+}
+
+@layer utilities {
+  .font-nirmala {
+    font-family: 'Nirmala UI', 'Segoe UI', sans-serif;
+    font-weight: 300;
+  }
+
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .bg-card-std {
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%);
+  }
+
+  .bg-card-alert {
+    background: linear-gradient(135deg, #fffbf0 0%, #fef3c7 100%);
+  }
+
+  .bg-card-payroll {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e8f4ff 100%);
+  }
+
+  .bg-card-esocial {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  }
+
+  .bg-card-charges {
+    background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+  }
+
+  .dark .bg-card-alert {
+    background: linear-gradient(135deg, hsl(43 30% 15%) 0%, hsl(43 40% 20%) 100%);
+  }
+
+  .dark .bg-card-payroll {
+    background: linear-gradient(135deg, hsl(210 30% 15%) 0%, hsl(210 40% 20%) 100%);
+  }
+
+  .dark .bg-card-esocial {
+    background: linear-gradient(135deg, hsl(140 30% 15%) 0%, hsl(140 40% 18%) 100%);
+  }
+
+  .dark .bg-card-charges {
+    background: linear-gradient(135deg, hsl(50 30% 15%) 0%, hsl(50 40% 18%) 100%);
+  }
+}

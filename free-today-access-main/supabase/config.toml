@@ -1,0 +1,7 @@
+project_id = "usyxjnnoxvwplkvemgcs"
+
+[functions.consulta-nfe]
+verify_jwt = false
+
+[functions.generate-recurring-bills]
+verify_jwt = false

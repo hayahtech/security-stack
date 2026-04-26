@@ -1,0 +1,1 @@
+ALTER TABLE public.prompts ADD COLUMN ai_tool text DEFAULT 'Todas';

@@ -275,7 +275,7 @@ function HerdCompactCard({
 
   return (
     <div
-      className="relative overflow-hidden rounded-xl h-28 cursor-pointer group transition-transform hover:scale-[1.02] hover:shadow-xl border border-border"
+      className="relative overflow-hidden rounded-xl h-[76px] cursor-pointer group transition-transform hover:scale-[1.02] hover:shadow-lg border border-border"
       style={{
         background: isDark
           ? "linear-gradient(135deg, #0a150a 0%, #1a2a12 100%)"
@@ -285,34 +285,34 @@ function HerdCompactCard({
     >
       {/* Acento verde radial canto inferior direito */}
       <div
-        className="absolute bottom-0 right-0 w-16 h-16 opacity-30"
+        className="absolute bottom-0 right-0 w-12 h-12 opacity-25"
         style={{ background: "radial-gradient(circle at bottom right, #22c55e 0%, transparent 70%)" }}
       />
       {/* Acento dourado canto superior direito */}
       <div
-        className="absolute top-0 right-0 w-12 h-full opacity-20"
+        className="absolute top-0 right-0 w-10 h-full opacity-15"
         style={{ background: "linear-gradient(to bottom left, #F0C040 0%, transparent 60%)" }}
       />
 
-      <div className="relative z-10 flex flex-col justify-center h-full px-4 gap-0.5">
+      <div className="relative z-10 flex flex-col justify-center h-full px-3 gap-0.5">
         <p
-          className="text-[10px] font-bold tracking-[0.2em] uppercase"
+          className="text-[9px] font-bold tracking-[0.18em] uppercase leading-none"
           style={{ color: isDark ? "#C9950A" : "#9A6F00" }}
         >
           {label}
         </p>
         <p
-          className="text-3xl font-bold leading-none"
+          className="text-2xl font-bold leading-tight"
           style={{
             color: isDark ? "#F0C040" : "#B8860B",
-            textShadow: isDark ? "0 0 20px rgba(240,192,64,0.25)" : "none",
+            textShadow: isDark ? "0 0 16px rgba(240,192,64,0.2)" : "none",
           }}
         >
           {count.toLocaleString("pt-BR")}
         </p>
         {variation !== 0 && (
-          <p className={`text-[10px] font-semibold ${variationColor}`}>
-            {variation > 0 ? "▲" : "▼"} {Math.abs(variation)} este mês
+          <p className={`text-[9px] font-semibold leading-none ${variationColor}`}>
+            {variation > 0 ? "▲" : "▼"} {Math.abs(variation)} esse mês
           </p>
         )}
       </div>
@@ -324,6 +324,7 @@ function HerdGrid() {
   const navigate = useNavigate();
   const { theme } = useTheme();
 
+  // Row 1 — premium com foto: 3 cards, Total Rebanho ocupa 2 colunas → 2+1+1 = 4 ✓
   const featuredCards = [
     {
       label: "Total Rebanho",
@@ -332,7 +333,7 @@ function HerdGrid() {
       imgLight: "/imagens/rebanho-light.png",
       imgDark: "/imagens/rebanho-dark.png",
       route: "/rebanho/animais",
-      span: "lg:col-span-2",
+      span: "sm:col-span-2",
     },
     {
       label: "Vacas",
@@ -356,6 +357,10 @@ function HerdGrid() {
       route: "/rebanho/animais",
       span: "",
     },
+  ];
+
+  // Row 2 — compact: Bezerros + 4 categorias secundárias
+  const compactCards = [
     {
       label: "Bezerros",
       count:
@@ -364,21 +369,16 @@ function HerdGrid() {
       variation:
         (herdData.find((h) => h.label === "Bezerros")?.variation ?? 0) +
         (herdData.find((h) => h.label === "Bezerras")?.variation ?? 0),
-      imgLight: "/imagens/bezerros-dark.png",
-      imgDark: "/imagens/bezerros-dark.png",
-      route: "/rebanho/animais",
-      span: "",
     },
+    ...herdData.filter((h) =>
+      ["Novilhos", "Novilhas", "Nov. Reposição", "Vacas Prenhas"].includes(h.label),
+    ),
   ];
 
-  const compactCards = herdData.filter((h) =>
-    ["Novilhos", "Novilhas", "Nov. Reposição", "Vacas Prenhas"].includes(h.label),
-  );
-
   return (
-    <div className="space-y-3">
-      {/* Cards premium com foto */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+    <div className="space-y-2.5">
+      {/* Row 1: 3 cards premium com foto — Total Rebanho span 2, Vacas, Touros */}
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
         {featuredCards.map((c) => (
           <div key={c.label} className={c.span}>
             <HerdPremiumCard
@@ -394,8 +394,8 @@ function HerdGrid() {
         ))}
       </div>
 
-      {/* Cards compactos — categorias sem foto dedicada */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      {/* Row 2: 5 compact cards — Bezerros + Novilhos + Novilhas + Nov. Reposição + Vacas Prenhas */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
         {compactCards.map((h) => (
           <HerdCompactCard
             key={h.label}
@@ -407,6 +407,9 @@ function HerdGrid() {
           />
         ))}
       </div>
+
+      {/* Row 3: GMD strip compacto */}
+      <GmdDashboardCard />
     </div>
   );
 }
@@ -511,46 +514,68 @@ function GmdDashboardCard() {
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl h-full min-h-[110px] cursor-pointer
+      className="relative overflow-hidden rounded-xl h-[60px] cursor-pointer
         bg-[#0e1208] border border-[#2a3a10]/60
-        shadow-md hover:shadow-lg hover:scale-[1.015] transition-all duration-200"
+        shadow-sm hover:shadow-md hover:scale-[1.008] transition-all duration-200"
       onClick={() => navigate("/rebanho/relatorios/gmd")}
     >
       {/* Faixa inferior dourada */}
-      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber-500 via-amber-400 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-500 via-amber-400 to-transparent" />
 
       {/* Fundo com grid sutil */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.035]"
         style={{
-          backgroundImage: "linear-gradient(rgba(201,168,76,0.8) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.8) 1px,transparent 1px)",
-          backgroundSize: "24px 24px",
+          backgroundImage:
+            "linear-gradient(rgba(201,168,76,0.8) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.8) 1px,transparent 1px)",
+          backgroundSize: "20px 20px",
         }}
       />
 
-      {/* Ícone background decorativo */}
-      <Activity className="absolute right-4 top-1/2 -translate-y-1/2 h-16 w-16 text-amber-400/10" />
+      {/* Layout horizontal centralizado */}
+      <div className="absolute inset-0 flex items-center justify-center gap-3 px-4">
+        {/* Ícone decorativo */}
+        <Activity className="h-5 w-5 text-amber-400/25 shrink-0" />
 
-      {/* Conteúdo */}
-      <div className="absolute inset-0 flex flex-col justify-center pl-5">
-        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-300/60 mb-0.5">
+        {/* Separador */}
+        <div className="w-px h-5 bg-amber-500/20 shrink-0" />
+
+        {/* Label */}
+        <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-amber-300/50 whitespace-nowrap hidden sm:block">
           GMD Médio do Rebanho
         </p>
-        <p
-          className="font-display font-black text-[2.2rem] leading-none text-amber-400"
-          style={{ textShadow: "0 2px 8px rgba(0,0,0,0.6)" }}
-        >
-          {avgGmd.toFixed(3)}
-        </p>
-        <div className="flex items-center gap-2 mt-1.5">
-          <span className="text-[10px] text-amber-300/50">kg / dia</span>
+
+        {/* Separador */}
+        <div className="w-px h-5 bg-amber-500/20 shrink-0 hidden sm:block" />
+
+        {/* Valor + unidade */}
+        <div className="flex items-baseline gap-1.5 shrink-0">
           <span
-            className={`inline-flex items-center gap-0.5 text-[10px] font-semibold px-1.5 py-0.5 rounded-full
-              ${diff >= 0 ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400"}`}
+            className="font-display font-black text-xl leading-none text-amber-400"
+            style={{ textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}
           >
-            {diff >= 0 ? <TrendingUp className="h-2.5 w-2.5" /> : <TrendingDown className="h-2.5 w-2.5" />}
-            {diff >= 0 ? "+" : ""}{pctChange}%
+            {avgGmd.toFixed(3)}
           </span>
+          <span className="text-[10px] text-amber-300/50">kg/dia</span>
+        </div>
+
+        {/* Badge variação */}
+        <span
+          className={`inline-flex items-center gap-0.5 text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0
+            ${diff >= 0 ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400"}`}
+        >
+          {diff >= 0 ? <TrendingUp className="h-2.5 w-2.5" /> : <TrendingDown className="h-2.5 w-2.5" />}
+          {diff >= 0 ? "+" : ""}
+          {pctChange}%
+        </span>
+
+        {/* Separador */}
+        <div className="w-px h-5 bg-amber-500/20 shrink-0" />
+
+        {/* Link "Ver relatório" */}
+        <div className="flex items-center gap-1 text-amber-300/35 hover:text-amber-300/65 transition-colors shrink-0">
+          <span className="text-[10px] whitespace-nowrap hidden md:block">Ver relatório</span>
+          <ChevronRight className="h-3.5 w-3.5" />
         </div>
       </div>
     </div>
@@ -839,14 +864,7 @@ export default function Dashboard() {
               <>
                 <section className="space-y-4">
                   <SectionHeader title="Rebanho" link="/rebanho/animais" />
-                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-stretch">
-                    <div className="lg:col-span-3">
-                      <HerdGrid />
-                    </div>
-                    <div className="flex flex-col gap-3 h-full">
-                      <GmdDashboardCard />
-                    </div>
-                  </div>
+                  <HerdGrid />
                 </section>
                 <Separator />
               </>

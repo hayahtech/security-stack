@@ -1,0 +1,1 @@
+ALTER TABLE public.sale_items ALTER COLUMN user_id SET NOT NULL;

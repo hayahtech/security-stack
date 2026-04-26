@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Secrets — NUNCA commitar
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Uploads (user-generated content)
+src/assets/uploads/*
+!src/assets/uploads/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Gemini/Antigravity local data
+.gemini/
