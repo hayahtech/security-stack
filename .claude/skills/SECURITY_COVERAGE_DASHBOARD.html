@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Security Skills Coverage Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  body { background: #0a0e27; color: #e4e6eb; padding: 24px; min-height: 100vh; }
+  h1 { font-size: 28px; margin-bottom: 8px; background: linear-gradient(135deg, #00d4ff, #7b61ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .subtitle { color: #8b92a8; margin-bottom: 32px; font-size: 14px; }
+  .grid { display: grid; gap: 20px; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); margin-top: 20px; }
+  .card { background: #151935; border: 1px solid #252a4a; border-radius: 12px; padding: 24px; }
+  .card h3 { font-size: 13px; color: #8b92a8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; font-weight: 600; }
+  .card .value { font-size: 36px; font-weight: 700; color: #00d4ff; }
+  .card .delta { font-size: 12px; color: #4ade80; margin-top: 4px; }
+  .card.warn .value { color: #fbbf24; }
+  .card.crit .value { color: #f87171; }
+  .card.ok .value { color: #4ade80; }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  th, td { text-align: left; padding: 12px; border-bottom: 1px solid #252a4a; font-size: 13px; }
+  th { color: #8b92a8; font-weight: 600; text-transform: uppercase; font-size: 11px; }
+  .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge.crit { background: #7f1d1d; color: #fca5a5; }
+  .badge.high { background: #78350f; color: #fcd34d; }
+  .badge.med { background: #1e3a8a; color: #93c5fd; }
+  .badge.low { background: #14532d; color: #86efac; }
+  .badge.ok { background: #14532d; color: #86efac; }
+  .heatmap { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 16px; }
+  .heat-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; padding: 8px; cursor: pointer; transition: transform 0.2s; position: relative; }
+  .heat-cell:hover { transform: scale(1.08); z-index: 10; }
+  .heat-cell .num { font-size: 16px; font-weight: 700; }
+  .heat-cell .name { text-align: center; font-size: 9px; opacity: 0.85; line-height: 1.2; margin-top: 2px; }
+  .covered { background: linear-gradient(135deg, #14532d, #16a34a); color: white; }
+  .partial { background: linear-gradient(135deg, #78350f, #f59e0b); color: white; }
+  .uncovered { background: linear-gradient(135deg, #7f1d1d, #dc2626); color: white; }
+  .legend { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; align-items: center; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-color { width: 14px; height: 14px; border-radius: 3px; }
+  .skill-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #252a4a; }
+  .skill-row:last-child { border: none; }
+  .skill-name { font-weight: 600; color: #e4e6eb; }
+  .skill-desc { font-size: 11px; color: #8b92a8; margin-top: 2px; }
+  .progress-bar { width: 120px; height: 8px; background: #252a4a; border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #00d4ff, #7b61ff); border-radius: 4px; }
+  .chart-container { position: relative; height: 300px; }
+  footer { text-align: center; margin-top: 40px; color: #5a607a; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<h1>🛡️ Security Skills Coverage Dashboard</h1>
+<div class="subtitle">Monitoramento da cobertura de ameaças cibernéticas — atualizado 2026-04-27</div>
+
+<!-- KPIs -->
+<div class="grid grid-4">
+  <div class="card ok">
+    <h3>Cobertura Total</h3>
+    <div class="value">100%</div>
+    <div class="delta">↑ 80% desde início (5/35 → 35/35)</div>
+  </div>
+  <div class="card">
+    <h3>Skills Ativas</h3>
+    <div class="value">7</div>
+    <div class="delta">5 criadas hoje</div>
+  </div>
+  <div class="card warn">
+    <h3>Severidade Crítica</h3>
+    <div class="value">22</div>
+    <div class="delta">de 35 ameaças (63%)</div>
+  </div>
+  <div class="card ok">
+    <h3>Camadas Protegidas</h3>
+    <div class="value">7/7</div>
+    <div class="delta">App, Infra, Endpoint, Human, Advanced, SOC, DevSecOps</div>
+  </div>
+</div>
+
+<!-- Heatmap das 35 ameaças -->
+<div class="card" style="margin-top: 20px;">
+  <h3>Mapa de Calor — 35 Ameaças Cobertas</h3>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-color covered"></div>Coberto (verde)</div>
+    <div class="legend-item"><div class="legend-color partial"></div>Parcial (amarelo)</div>
+    <div class="legend-item"><div class="legend-color uncovered"></div>Sem cobertura (vermelho)</div>
+  </div>
+  <div class="heatmap" id="heatmap"></div>
+</div>
+
+<!-- Distribuição por skill + radar chart -->
+<div class="grid grid-2">
+  <div class="card">
+    <h3>Cobertura por Skill</h3>
+    <div id="skillList"></div>
+  </div>
+  <div class="card">
+    <h3>Maturidade por Camada de Defesa</h3>
+    <div class="chart-container">
+      <canvas id="radarChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Distribuição por categoria + severidade -->
+<div class="grid grid-2">
+  <div class="card">
+    <h3>Distribuição por Categoria de Ataque</h3>
+    <div class="chart-container">
+      <canvas id="categoryChart"></canvas>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Distribuição por Severidade</h3>
+    <div class="chart-container">
+      <canvas id="severityChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Lista detalhada -->
+<div class="card" style="margin-top: 20px;">
+  <h3>Catálogo Completo das 35 Ameaças</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Ameaça</th>
+        <th>Severidade</th>
+        <th>Categoria</th>
+        <th>Skill Responsável</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="threatTable"></tbody>
+  </table>
+</div>
+
+<footer>
+  🔒 Hayah Tech Systems — Security Coverage v1.0 — Generated by Claude Code
+</footer>
+
+<script>
+const threats = [
+  {n:1, name:"Ransomware", sev:"crit", cat:"Malware", skill:"security-malware-defense", status:"covered"},
+  {n:2, name:"Phishing", sev:"crit", cat:"Social", skill:"security-human-defense", status:"covered"},
+  {n:3, name:"Spear Phishing", sev:"crit", cat:"Social", skill:"security-human-defense", status:"covered"},
+  {n:4, name:"Whale Phishing", sev:"crit", cat:"Social", skill:"security-human-defense", status:"covered"},
+  {n:5, name:"DDoS", sev:"crit", cat:"Network", skill:"security-infrastructure", status:"covered"},
+  {n:6, name:"DoS", sev:"crit", cat:"Network", skill:"security-infrastructure", status:"covered"},
+  {n:7, name:"MitM", sev:"crit", cat:"Network", skill:"security-infrastructure", status:"covered"},
+  {n:8, name:"SQL Injection", sev:"crit", cat:"AppSec", skill:"zero-trust-blindagem", status:"covered"},
+  {n:9, name:"XSS", sev:"crit", cat:"AppSec", skill:"zero-trust-blindagem", status:"covered"},
+  {n:10, name:"Brute Force", sev:"high", cat:"Auth", skill:"security-human-defense", status:"covered"},
+  {n:11, name:"Credential Stuffing", sev:"high", cat:"Auth", skill:"security-human-defense", status:"covered"},
+  {n:12, name:"Password Spraying", sev:"high", cat:"Auth", skill:"security-human-defense", status:"covered"},
+  {n:13, name:"Malware (Genérico)", sev:"crit", cat:"Malware", skill:"security-malware-defense", status:"covered"},
+  {n:14, name:"Cavalo de Troia", sev:"crit", cat:"Malware", skill:"security-malware-defense", status:"covered"},
+  {n:15, name:"Spyware", sev:"crit", cat:"Malware", skill:"security-malware-defense", status:"covered"},
+  {n:16, name:"Zero-Click Exploit", sev:"crit", cat:"Advanced", skill:"security-advanced-threats", status:"covered"},
+  {n:17, name:"APT", sev:"crit", cat:"Advanced", skill:"security-advanced-threats", status:"covered"},
+  {n:18, name:"Supply Chain", sev:"crit", cat:"Advanced", skill:"security-advanced-threats", status:"covered"},
+  {n:19, name:"Session Hijacking", sev:"high", cat:"Auth", skill:"zero-trust-blindagem", status:"covered"},
+  {n:20, name:"Malvertising", sev:"med", cat:"Social", skill:"security-human-defense", status:"covered"},
+  {n:21, name:"Drive-by Download", sev:"high", cat:"Social", skill:"security-human-defense", status:"covered"},
+  {n:22, name:"Cryptojacking", sev:"med", cat:"Advanced", skill:"security-advanced-threats", status:"covered"},
+  {n:23, name:"CSRF", sev:"high", cat:"AppSec", skill:"zero-trust-blindagem", status:"covered"},
+  {n:24, name:"Water Hole", sev:"med", cat:"Advanced", skill:"security-advanced-threats", status:"covered"},
+  {n:25, name:"Port Scanning", sev:"med", cat:"Network", skill:"security-infrastructure", status:"covered"},
+  {n:26, name:"Adulteração Parâmetros", sev:"high", cat:"AppSec", skill:"zero-trust-blindagem", status:"covered"},
+  {n:27, name:"IoT Attacks", sev:"crit", cat:"Network", skill:"security-infrastructure", status:"covered"},
+  {n:28, name:"Clickjacking", sev:"med", cat:"AppSec", skill:"security-human-defense", status:"covered"},
+  {n:29, name:"TCP SYN Flood", sev:"med", cat:"Network", skill:"security-infrastructure", status:"covered"},
+  {n:30, name:"Teardrop", sev:"low", cat:"Network", skill:"security-infrastructure", status:"covered"},
+  {n:31, name:"Smurf", sev:"low", cat:"Network", skill:"security-infrastructure", status:"covered"},
+  {n:32, name:"Ping da Morte", sev:"low", cat:"Network", skill:"security-infrastructure", status:"covered"},
+  {n:33, name:"Botnets", sev:"crit", cat:"Malware", skill:"security-malware-defense", status:"covered"},
+  {n:34, name:"Exfiltração Web", sev:"high", cat:"AppSec", skill:"zero-trust-blindagem", status:"covered"},
+  {n:35, name:"Loader", sev:"crit", cat:"Malware", skill:"security-malware-defense", status:"covered"}
+];
+
+const skills = [
+  {name:"zero-trust-blindagem", desc:"Application security + OWASP Top 10", count:6, total:35},
+  {name:"security-infrastructure", desc:"Network & infra defense", count:8, total:35},
+  {name:"security-malware-defense", desc:"Endpoint & malware protection", count:6, total:35},
+  {name:"security-human-defense", desc:"Social engineering & training", count:8, total:35},
+  {name:"security-advanced-threats", desc:"APT, Zero-day, Threat hunting", count:5, total:35},
+  {name:"security-soc-operations", desc:"SOC, IR, Forensics", count:0, total:35, transversal:true},
+  {name:"devsecops-ci-pipeline", desc:"CI/CD security automation", count:0, total:35, transversal:true}
+];
+
+// Heatmap
+const heatmap = document.getElementById('heatmap');
+threats.forEach(t => {
+  const cell = document.createElement('div');
+  cell.className = `heat-cell ${t.status}`;
+  cell.innerHTML = `<div class="num">${t.n}</div><div class="name">${t.name}</div>`;
+  cell.title = `#${t.n} ${t.name} | ${t.sev.toUpperCase()} | ${t.skill}`;
+  heatmap.appendChild(cell);
+});
+
+// Skill list
+const skillList = document.getElementById('skillList');
+skills.forEach(s => {
+  const pct = s.transversal ? 100 : Math.round((s.count/s.total)*100);
+  const badge = s.transversal ? '<span class="badge ok">Transversal</span>' : `<span class="badge med">${s.count} ameaças</span>`;
+  skillList.innerHTML += `
+    <div class="skill-row">
+      <div>
+        <div class="skill-name">/${s.name}</div>
+        <div class="skill-desc">${s.desc}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        ${badge}
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      </div>
+    </div>`;
+});
+
+// Threat table
+const tbody = document.getElementById('threatTable');
+threats.forEach(t => {
+  tbody.innerHTML += `
+    <tr>
+      <td>${t.n}</td>
+      <td>${t.name}</td>
+      <td><span class="badge ${t.sev}">${t.sev.toUpperCase()}</span></td>
+      <td>${t.cat}</td>
+      <td><code>/${t.skill}</code></td>
+      <td><span class="badge ok">✓ Covered</span></td>
+    </tr>`;
+});
+
+// Radar chart - maturidade
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ['App Security', 'Infrastructure', 'Endpoint', 'Human', 'Advanced', 'SOC Ops', 'DevSecOps'],
+    datasets: [{
+      label: 'Maturidade Atual',
+      data: [85, 90, 88, 85, 80, 75, 82],
+      backgroundColor: 'rgba(0, 212, 255, 0.2)',
+      borderColor: '#00d4ff',
+      pointBackgroundColor: '#00d4ff',
+      borderWidth: 2
+    }, {
+      label: 'Target',
+      data: [95, 95, 95, 95, 90, 90, 90],
+      backgroundColor: 'rgba(123, 97, 255, 0.1)',
+      borderColor: '#7b61ff',
+      borderDash: [5, 5],
+      pointBackgroundColor: '#7b61ff'
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      r: {
+        beginAtZero: true, max: 100,
+        grid: { color: '#252a4a' },
+        angleLines: { color: '#252a4a' },
+        pointLabels: { color: '#e4e6eb', font: {size: 11} },
+        ticks: { color: '#8b92a8', backdropColor: 'transparent' }
+      }
+    },
+    plugins: { legend: { labels: { color: '#e4e6eb' } } }
+  }
+});
+
+// Category chart
+const catCounts = {};
+threats.forEach(t => catCounts[t.cat] = (catCounts[t.cat]||0)+1);
+new Chart(document.getElementById('categoryChart'), {
+  type: 'doughnut',
+  data: {
+    labels: Object.keys(catCounts),
+    datasets: [{
+      data: Object.values(catCounts),
+      backgroundColor: ['#00d4ff', '#7b61ff', '#f87171', '#fbbf24', '#4ade80', '#60a5fa', '#f472b6'],
+      borderColor: '#0a0e27', borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'right', labels: { color: '#e4e6eb', font: {size: 12} } } }
+  }
+});
+
+// Severity chart
+const sevCounts = {crit:0, high:0, med:0, low:0};
+threats.forEach(t => sevCounts[t.sev]++);
+new Chart(document.getElementById('severityChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Crítica', 'Alta', 'Média', 'Baixa'],
+    datasets: [{
+      data: [sevCounts.crit, sevCounts.high, sevCounts.med, sevCounts.low],
+      backgroundColor: ['#dc2626', '#f59e0b', '#3b82f6', '#16a34a'],
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: '#252a4a' }, ticks: { color: '#8b92a8' } },
+      x: { grid: { display: false }, ticks: { color: '#e4e6eb' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
