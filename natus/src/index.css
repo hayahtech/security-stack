@@ -48,15 +48,15 @@
     /* Radius */
     --radius: 0.75rem;
 
-    /* Sidebar — Índigo profundo */
-    --sidebar-background: 239 55% 13%;
-    --sidebar-foreground: 240 30% 92%;
-    --sidebar-primary: 38 100% 58%;
-    --sidebar-primary-foreground: 30 100% 10%;
-    --sidebar-accent: 239 45% 20%;
-    --sidebar-accent-foreground: 240 30% 92%;
-    --sidebar-border: 239 35% 22%;
-    --sidebar-ring: 38 100% 58%;
+    /* Sidebar — Cinza azulado suave (modo claro) */
+    --sidebar-background: 220 20% 97%;
+    --sidebar-foreground: 240 15% 22%;
+    --sidebar-primary: 239 84% 62%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 16% 91%;
+    --sidebar-accent-foreground: 240 15% 22%;
+    --sidebar-border: 220 14% 88%;
+    --sidebar-ring: 239 84% 62%;
 
     /* Chart */
     --chart-1: 239 84% 62%;
@@ -116,6 +116,19 @@
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
+}
+
+/* ── Sidebar hover highlight ─────────────────────────────────────────────── */
+[data-sidebar="menu-button"]:not([data-active="true"]) {
+  position: relative;
+  border-left: 2px solid transparent;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+[data-sidebar="menu-button"]:not([data-active="true"]):hover {
+  border-left-color: hsl(var(--sidebar-primary) / 0.6);
+}
+[data-sidebar="menu-button"][data-active="true"] {
+  border-left: 2px solid hsl(var(--sidebar-primary));
 }
 
 /* Fontes display */

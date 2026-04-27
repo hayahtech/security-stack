@@ -184,7 +184,7 @@ export default function SaudeFinanceira() {
         <Card>
           <CardHeader><CardTitle className="text-base">Dimensões Avaliadas</CardTitle></CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={360}>
               <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="75%">
                 <PolarGrid stroke="hsl(var(--border))" />
                 <PolarAngleAxis dataKey="subject" fontSize={11} stroke="hsl(var(--muted-foreground))" />
@@ -264,7 +264,7 @@ export default function SaudeFinanceira() {
           </div>
         </CardHeader>
         <CardContent>
-          <ResponsiveContainer width="100%" height={200}>
+          <ResponsiveContainer width="100%" height={260}>
             <LineChart data={scoreHistory}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="month" fontSize={11} stroke="hsl(var(--muted-foreground))" />

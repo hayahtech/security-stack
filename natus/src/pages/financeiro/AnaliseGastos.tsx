@@ -191,7 +191,7 @@ export default function AnaliseGastos() {
         <Card>
           <CardHeader><CardTitle className="text-base">Mapa de Gastos</CardTitle><CardDescription>Blocos proporcionais ao valor gasto</CardDescription></CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={380}>
               <Treemap data={treemapData} dataKey="size" aspectRatio={4/3} content={<CustomTreemapContent />} />
             </ResponsiveContainer>
           </CardContent>
@@ -199,7 +199,7 @@ export default function AnaliseGastos() {
         <Card>
           <CardHeader><CardTitle className="text-base">Tendência de Gastos</CardTitle></CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={380}>
               <LineChart data={trendData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis dataKey="month" fontSize={11} stroke="hsl(var(--muted-foreground))" />
@@ -372,7 +372,7 @@ export default function AnaliseGastos() {
               <Slider min={50} max={Math.max(spendingData.find(c => c.name === savingsCategory)?.months[period] || 500, 500)} step={50} value={savingsAmount} onValueChange={setSavingsAmount} className="mt-2" />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Card className="bg-muted/50"><CardContent className="pt-4">
               <p className="text-xs text-muted-foreground">Em 12 meses</p>
               <p className="text-lg font-bold text-primary">{fmt(savingsYearly)}</p>

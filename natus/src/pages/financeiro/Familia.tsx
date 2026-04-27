@@ -217,7 +217,7 @@ function AllowancePanel({ member, config, expenses }: { member: FamilyMember; co
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Saldo */}
-        <div className="grid grid-cols-3 gap-3 text-center">
+        <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 text-center">
           <div className="p-2 rounded-lg bg-primary/10">
             <p className="text-xs text-muted-foreground">Disponível</p>
             <p className={cn("text-sm font-bold", available >= 0 ? "text-primary" : "text-destructive")}>{fmt(available)}</p>
@@ -430,11 +430,11 @@ export default function Familia() {
       </div>
 
       <Tabs defaultValue="dashboard" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-          <TabsTrigger value="divisao">Divisão</TabsTrigger>
-          <TabsTrigger value="mesada">Mesada</TabsTrigger>
-          <TabsTrigger value="eventos">Eventos</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 gap-1">
+          <TabsTrigger value="dashboard" className="text-xs sm:text-sm">Dashboard</TabsTrigger>
+          <TabsTrigger value="divisao" className="text-xs sm:text-sm">Divisão</TabsTrigger>
+          <TabsTrigger value="mesada" className="text-xs sm:text-sm">Mesada</TabsTrigger>
+          <TabsTrigger value="eventos" className="text-xs sm:text-sm">Eventos</TabsTrigger>
         </TabsList>
 
         {/* ═══ Dashboard ═══ */}
@@ -610,7 +610,7 @@ export default function Familia() {
               <Card>
                 <CardHeader><CardTitle className="text-base">Resumo das Mesadas</CardTitle></CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={200}>
+                  <ResponsiveContainer width="100%" height={280}>
                     <BarChart data={children.map(c => {
                       const cfg = allowances.find(a => a.memberId === c.id);
                       const spent = allowanceExpenses.filter(e => e.memberId === c.id).reduce((s, e) => s + e.amount, 0);

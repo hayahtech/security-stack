@@ -2,6 +2,8 @@ import { Outlet, useLocation, Navigate } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useAuth } from "@/hooks/useAuth";
+import { useState, useCallback } from "react";
+import { Maximize2, Minimize2 } from "lucide-react";
 import {
   Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink,
   BreadcrumbSeparator, BreadcrumbPage,
@@ -32,6 +34,17 @@ export function AppLayout() {
   const location = useLocation();
   const crumb = breadcrumbMap[location.pathname];
   const { user, loading } = useAuth();
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -83,6 +96,16 @@ export function AppLayout() {
                 <h2 className="font-display text-sm font-semibold text-foreground">Natus</h2>
               )}
             </div>
+            <button
+              onClick={toggleFullscreen}
+              title={isFullscreen ? "Sair da tela cheia" : "Tela cheia"}
+              className="ml-2 w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+            >
+              {isFullscreen
+                ? <Minimize2 className="h-4 w-4" />
+                : <Maximize2 className="h-4 w-4" />
+              }
+            </button>
           </header>
           <main className="flex-1 p-4 md:p-6 overflow-x-hidden animate-fade-in">
             <Outlet />

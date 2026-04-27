@@ -24,43 +24,43 @@ export interface MetaFinanceira {
   aportes: AporteFinanceiro[];
 }
 
-export const metaEmojis: Record<string, string> = {
-  "Reserva de emergência": "🛡️",
-  "Viagem": "✈️",
-  "Veículo": "🚗",
-  "Imóvel": "🏠",
-  "Educação": "📚",
-  "Aposentadoria": "🌅",
-  "Investimento": "📈",
-  "Outros": "🎯",
-};
-
-export const metaCategories = [
-  { value: "Reserva de emergência", label: "Reserva de emergência" },
-  { value: "Viagem", label: "Viagem" },
-  { value: "Veículo", label: "Veículo" },
-  { value: "Imóvel", label: "Imóvel" },
-  { value: "Educação", label: "Educação" },
-  { value: "Aposentadoria", label: "Aposentadoria" },
-  { value: "Investimento", label: "Investimento" },
-  { value: "Outros", label: "Outros" },
+export const metaEmojis: string[] = [
+  "🛡️", "✈️", "🚗", "🏠", "📚", "🌅", "📈", "🎯", "💍", "🎓", "💼", "🏥",
 ];
 
-export const metaColors: Record<string, string> = {
-  "Reserva de emergência": "var(--indigo-500)",
-  "Viagem": "var(--violet-500)",
-  "Veículo": "var(--amber-500)",
-  "Imóvel": "var(--emerald-500)",
-  "Educação": "var(--blue-500)",
-  "Aposentadoria": "var(--rose-500)",
-  "Investimento": "var(--teal-500)",
-  "Outros": "var(--slate-500)",
-};
+export const metaCategories: string[] = [
+  "Reserva de emergência",
+  "Viagem",
+  "Veículo",
+  "Imóvel",
+  "Educação",
+  "Aposentadoria",
+  "Investimento",
+  "Outros",
+];
+
+// HSL triplet strings — consumidos como `hsl(${c})` no MetasFinanceiras
+export const metaColors: string[] = [
+  "239 84% 67%", // indigo
+  "262 83% 58%", // violet
+  "38 92% 50%",  // amber
+  "160 84% 39%", // emerald
+  "217 91% 60%", // blue
+  "350 89% 60%", // rose
+  "173 80% 40%", // teal
+  "215 16% 47%", // slate
+];
 
 export const averageMonthlyExpenses = 8340;
 
-// Generate 36 months of data (3 years back from now)
-function generateAportes(metaId: string, startDate: string, initialAmount: number, monthlyAmount: number, months: number): AporteFinanceiro[] {
+// Generate up to N months of contribution history with realistic variation
+function generateAportes(
+  metaId: string,
+  startDate: string,
+  initialAmount: number,
+  monthlyAmount: number,
+  months: number,
+): AporteFinanceiro[] {
   const aportes: AporteFinanceiro[] = [];
   const start = new Date(startDate);
 
@@ -82,14 +82,14 @@ function generateAportes(metaId: string, startDate: string, initialAmount: numbe
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
 
-    const variation = monthlyAmount * (0.8 + Math.random() * 0.4); // 80%-120% variation
+    const variation = monthlyAmount * (0.8 + Math.random() * 0.4); // 80%–120%
     aportes.push({
       id: `ap-${metaId}-${i}`,
       meta_id: metaId,
       date: `${year}-${month}-${day}`,
       amount: Math.round(variation),
       instrument_id: "inst-1",
-      observation: i % 12 === 0 ? "Aporte anual reforçado" : `Contribuição mensal`,
+      observation: i % 12 === 0 ? "Aporte anual reforçado" : "Contribuição mensal",
     });
   }
 
@@ -107,7 +107,7 @@ export const mockMetas: MetaFinanceira[] = [
     instrument_id: "inst-1",
     target_date: null,
     priority: "alta",
-    color: "var(--indigo-500)",
+    color: "239 84% 67%",
     observations: "Equivalente a 6 meses de despesas (R$ 8.340/mês × 6)",
     created_at: "2023-01-15",
     completed_at: null,
@@ -123,7 +123,7 @@ export const mockMetas: MetaFinanceira[] = [
     instrument_id: "inst-2",
     target_date: "2027-06-01",
     priority: "media",
-    color: "var(--violet-500)",
+    color: "262 83% 58%",
     observations: "Viagem de 2 semanas para Portugal, Itália e Grécia",
     created_at: "2024-03-20",
     completed_at: null,
@@ -139,7 +139,7 @@ export const mockMetas: MetaFinanceira[] = [
     instrument_id: "inst-3",
     target_date: "2026-12-31",
     priority: "alta",
-    color: "var(--amber-500)",
+    color: "38 92% 50%",
     observations: "Carro novo modelo 2027, entrada + financiamento",
     created_at: "2023-06-01",
     completed_at: null,
@@ -147,7 +147,7 @@ export const mockMetas: MetaFinanceira[] = [
   },
   {
     id: "meta-4",
-    name: "Apto para aluguel - Reforma",
+    name: "Apto para aluguel — Reforma",
     emoji: "🏠",
     category: "Imóvel",
     target_amount: 45000,
@@ -155,7 +155,7 @@ export const mockMetas: MetaFinanceira[] = [
     instrument_id: "inst-1",
     target_date: "2025-11-30",
     priority: "alta",
-    color: "var(--emerald-500)",
+    color: "160 84% 39%",
     observations: "Reforma completa do apto para renda passiva",
     created_at: "2023-01-01",
     completed_at: "2025-11-15",
@@ -171,7 +171,7 @@ export const mockMetas: MetaFinanceira[] = [
     instrument_id: "inst-4",
     target_date: "2028-12-31",
     priority: "media",
-    color: "var(--teal-500)",
+    color: "173 80% 40%",
     observations: "Carteira diversificada em Blue Chips e ETFs",
     created_at: "2023-02-01",
     completed_at: null,
@@ -187,7 +187,7 @@ export const mockMetas: MetaFinanceira[] = [
     instrument_id: "inst-1",
     target_date: "2024-12-31",
     priority: "alta",
-    color: "var(--blue-500)",
+    color: "217 91% 60%",
     observations: "Curso de pós-graduação em Machine Learning",
     created_at: "2024-01-15",
     completed_at: "2024-11-30",
@@ -203,7 +203,7 @@ export const mockMetas: MetaFinanceira[] = [
     instrument_id: "inst-4",
     target_date: "2055-12-31",
     priority: "alta",
-    color: "var(--rose-500)",
+    color: "350 89% 60%",
     observations: "Contribuições mensais para segurança no futuro",
     created_at: "2023-01-01",
     completed_at: null,
@@ -219,7 +219,7 @@ export const mockMetas: MetaFinanceira[] = [
     instrument_id: "inst-1",
     target_date: "2024-09-30",
     priority: "baixa",
-    color: "var(--slate-500)",
+    color: "215 16% 47%",
     observations: "Smart TV, climatizador, iluminação inteligente",
     created_at: "2024-02-01",
     completed_at: "2024-09-28",

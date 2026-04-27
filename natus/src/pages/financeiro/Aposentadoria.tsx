@@ -285,7 +285,7 @@ export default function Aposentadoria() {
               <Card className="md:col-span-2">
                 <CardHeader><CardTitle className="text-base">Evolução do Patrimônio</CardTitle><CardDescription>Fase de acumulação → Fase de renda</CardDescription></CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width="100%" height={360}>
                     <LineChart data={result.chartData}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="age" fontSize={11} stroke="hsl(var(--muted-foreground))" label={{ value: "Idade", position: "bottom", fontSize: 10 }} />
@@ -301,7 +301,7 @@ export default function Aposentadoria() {
               <Card>
                 <CardHeader><CardTitle className="text-base">Composição Futura</CardTitle></CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={250}>
+                  <ResponsiveContainer width="100%" height={360}>
                     <PieChart>
                       <Pie data={compositionData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label={({ name, percent }) => `${name.split(" ")[0]} ${(percent * 100).toFixed(0)}%`} labelLine={false}>
                         {compositionData.map((entry, i) => (

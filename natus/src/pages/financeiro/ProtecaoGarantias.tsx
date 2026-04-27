@@ -387,9 +387,9 @@ export default function ProtecaoGarantias() {
 
       <Tabs defaultValue="garantias" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="garantias">🛡️ Garantias</TabsTrigger>
-          <TabsTrigger value="seguros">❤️ Seguros</TabsTrigger>
-          <TabsTrigger value="documentos">📄 Documentos</TabsTrigger>
+          <TabsTrigger value="garantias" className="text-xs sm:text-sm">🛡️ <span className="hidden xs:inline">Garantias</span><span className="xs:hidden">Gar.</span></TabsTrigger>
+          <TabsTrigger value="seguros" className="text-xs sm:text-sm">❤️ <span className="hidden xs:inline">Seguros</span><span className="xs:hidden">Seg.</span></TabsTrigger>
+          <TabsTrigger value="documentos" className="text-xs sm:text-sm">📄 <span className="hidden xs:inline">Documentos</span><span className="xs:hidden">Doc.</span></TabsTrigger>
         </TabsList>
 
         {/* ═══ GARANTIAS ═══ */}
@@ -412,7 +412,7 @@ export default function ProtecaoGarantias() {
           </div>
 
           {/* Summary */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Card><CardContent className="pt-5 text-center">
               <CheckCircle2 className="h-5 w-5 text-primary mx-auto mb-1" />
               <p className="text-2xl font-bold text-foreground">{warranties.filter(w => getWarrantyStatus(w).status === "active").length}</p>

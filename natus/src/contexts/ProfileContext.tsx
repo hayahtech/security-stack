@@ -11,7 +11,7 @@ interface ProfileContextType {
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
 export function ProfileProvider({ children }: { children: React.ReactNode }) {
-  const [profile, setProfile] = useState<ProfileType>("empresarial");
+  const [profile, setProfile] = useState<ProfileType>("pessoal");
 
   const toggleProfile = () =>
     setProfile((p) => (p === "pessoal" ? "empresarial" : "pessoal"));

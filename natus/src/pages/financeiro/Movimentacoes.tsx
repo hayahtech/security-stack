@@ -136,7 +136,7 @@ export default function Movimentacoes() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-5 animate-fade-in">
+    <div className="space-y-5 animate-fade-in">
 
       {/* Header + CTAs */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -169,7 +169,7 @@ export default function Movimentacoes() {
       </div>
 
       {/* KPIs */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="neon-card-emerald rounded-xl p-4 space-y-1">
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <TrendingUp className="h-3.5 w-3.5" />

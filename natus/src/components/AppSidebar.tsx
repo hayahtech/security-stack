@@ -3,8 +3,7 @@ import {
   LayoutDashboard, Wallet, Target, ShoppingCart, TrendingUp,
   PiggyBank, HeartPulse, BarChart3, ShieldCheck,
   Sun, Moon, Settings, Gift, User, Users,
-  PanelLeftClose, PanelLeftOpen, FileUp, CreditCard,
-  Receipt, Building2, ArrowLeftRight,
+  FileUp, CreditCard, Receipt, Building2, ArrowLeftRight,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -21,7 +20,7 @@ interface NavItem {
   to: string;
   label: string;
   icon: React.ElementType;
-  highlight?: "primary" | "amber";  // estilo especial
+  highlight?: "primary" | "lime";  // estilo especial
 }
 
 interface NavGroup {
@@ -36,7 +35,7 @@ const NAV: NavGroup[] = [
     items: [
       { to: "/movimentacoes",   label: "Movimentações",    icon: ArrowLeftRight },
       { to: "/contas",          label: "Contas Bancárias",  icon: Building2      },
-      { to: "/importar-extrato",label: "Importar Extrato",  icon: FileUp, highlight: "amber" },
+      { to: "/importar-extrato",label: "Importar Extrato",  icon: FileUp, highlight: "lime"  },
     ],
   },
   {
@@ -105,13 +104,6 @@ export function AppSidebar() {
               <p className="text-[10px] text-sidebar-foreground/50 mt-0.5">Gestão Pessoal</p>
             </div>
           )}
-          <button
-            onClick={toggleSidebar}
-            className="ml-auto text-sidebar-foreground/40 hover:text-sidebar-foreground transition-colors shrink-0"
-            aria-label="Alternar sidebar"
-          >
-            {collapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
-          </button>
         </div>
 
         {/* Perfil */}
@@ -123,7 +115,7 @@ export function AppSidebar() {
               </div>
               <div className="min-w-0">
                 <p className="text-xs font-medium text-sidebar-foreground truncate">
-                  {profile?.nome || "Minha Conta"}
+                  {"Minha Conta"}
                 </p>
                 <p className="text-[10px] text-sidebar-foreground/50">Pessoa Física</p>
               </div>
@@ -166,7 +158,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                   {group.items.map(item => {
                     const active = isActive(item.to);
-                    const isAmber = item.highlight === "amber";
+                    const isLime = item.highlight === "lime";
 
                     return (
                       <SidebarMenuItem key={item.to}>
@@ -174,16 +166,16 @@ export function AppSidebar() {
                           <NavLink
                             to={item.to}
                             className={
-                              isAmber && !active
-                                ? "text-amber-500 hover:text-amber-400 hover:bg-amber-500/10"
-                                : ""
+                              isLime && !active
+                                ? "text-lime-600 dark:text-lime-400 hover:text-lime-700 dark:hover:text-lime-300 hover:bg-lime-500/10 transition-colors"
+                                : "hover:text-sidebar-primary hover:bg-sidebar-primary/10 transition-colors"
                             }
                           >
                             <item.icon
-                              className={`h-4 w-4 ${isAmber && !active ? "text-amber-500" : ""}`}
+                              className={`h-4 w-4 ${isLime && !active ? "text-lime-600 dark:text-lime-400" : ""}`}
                             />
                             {!collapsed && (
-                              <span className={isAmber && !active ? "font-medium" : ""}>
+                              <span className={isLime && !active ? "font-bold tracking-wide" : ""}>
                                 {item.label}
                               </span>
                             )}
@@ -215,27 +207,27 @@ export function AppSidebar() {
           } ${
             theme === "dark"
               ? "border-indigo-500/30 bg-indigo-500/10 hover:bg-indigo-500/20 hover:border-indigo-400/50"
-              : "border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/20 hover:border-amber-400/60"
+              : "border-primary/20 bg-primary/5 hover:bg-primary/10 hover:border-primary/35"
           }`}
         >
           <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${
-            theme === "dark" ? "bg-indigo-400/20" : "bg-amber-400/30"
+            theme === "dark" ? "bg-indigo-400/20" : "bg-primary/10"
           }`}>
             {theme === "dark"
               ? <Moon className="h-3.5 w-3.5 text-indigo-300" />
-              : <Sun  className="h-3.5 w-3.5 text-amber-500" />
+              : <Sun  className="h-3.5 w-3.5 text-primary" />
             }
           </div>
           {!collapsed && (
             <span className={`text-xs font-medium flex-1 text-left ${
-              theme === "dark" ? "text-indigo-200/80" : "text-amber-700/80"
+              theme === "dark" ? "text-indigo-200/80" : "text-primary/70"
             }`}>
               {theme === "dark" ? "Modo escuro" : "Modo claro"}
             </span>
           )}
           {!collapsed && (
             <div className={`w-7 h-4 rounded-full relative shrink-0 transition-colors ${
-              theme === "dark" ? "bg-indigo-500" : "bg-amber-400"
+              theme === "dark" ? "bg-indigo-500" : "bg-primary/40"
             }`}>
               <div className={`absolute top-0.5 w-3 h-3 rounded-full bg-white shadow transition-all ${
                 theme === "dark" ? "left-3.5" : "left-0.5"

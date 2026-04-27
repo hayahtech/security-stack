@@ -205,7 +205,7 @@ export default function MetasFinanceiras() {
               <span className="font-medium text-foreground">{fmt(meta.current_amount)}</span>
               <span className="text-muted-foreground">{fmt(meta.target_amount)}</span>
             </div>
-            <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t">
               <div><p className="text-xs text-muted-foreground">Faltam</p><p className="font-semibold text-foreground">{fmt(remaining)}</p></div>
               <div><p className="text-xs text-muted-foreground">Prazo</p><p className="font-semibold text-foreground">{meta.target_date ? format(parseISO(meta.target_date), "dd/MM/yyyy") : "Sem prazo"}</p></div>
               <div><p className="text-xs text-muted-foreground">Aporte mensal necessário</p><p className="font-semibold text-foreground">{fmt(monthlyNeeded || 0)}/mês</p></div>
@@ -217,7 +217,7 @@ export default function MetasFinanceiras() {
         <Card>
           <CardHeader><CardTitle className="text-base">Evolução da Meta</CardTitle></CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={380}>
               <AreaChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis dataKey="month" fontSize={11} stroke="hsl(var(--muted-foreground))" />

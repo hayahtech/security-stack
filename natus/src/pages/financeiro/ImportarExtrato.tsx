@@ -101,7 +101,7 @@ export default function ImportarExtrato() {
   const totalRows = files.filter(f => f.status === "done").reduce((s, f) => s + (f.rows ?? 0), 0);
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="font-display text-2xl font-bold text-foreground">Importar Extrato</h1>
         <p className="text-sm text-muted-foreground mt-1">

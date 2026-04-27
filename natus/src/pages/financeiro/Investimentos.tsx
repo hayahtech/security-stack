@@ -250,7 +250,7 @@ export default function Investimentos() {
             <Card>
               <CardHeader><CardTitle className="text-base">Composição da Carteira</CardTitle></CardHeader>
               <CardContent>
-                <ResponsiveContainer width="100%" height={250}>
+                <ResponsiveContainer width="100%" height={320}>
                   <PieChart>
                     <Pie data={compositionData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} label={({ name, pct }) => `${name.split(" ")[0]} ${pct.toFixed(0)}%`} labelLine={false}>
                       {compositionData.map((entry) => (
@@ -267,7 +267,7 @@ export default function Investimentos() {
             <Card>
               <CardHeader><CardTitle className="text-base">Evolução vs Benchmarks</CardTitle><CardDescription>Base 100</CardDescription></CardHeader>
               <CardContent>
-                <ResponsiveContainer width="100%" height={250}>
+                <ResponsiveContainer width="100%" height={320}>
                   <LineChart data={benchmarkData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                     <XAxis dataKey="month" fontSize={11} stroke="hsl(var(--muted-foreground))" />
@@ -470,7 +470,7 @@ export default function Investimentos() {
           <Card>
             <CardHeader><CardTitle className="text-base">Rentabilidade por Investimento vs CDI (9,5% a.a.)</CardTitle></CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={380}>
                 <BarChart data={ranked.map(i => ({ name: i.name.length > 20 ? i.name.substring(0, 20) + "…" : i.name, rentabilidade: i.returnPct, cdi: 9.5 * (differenceInMonths(new Date(), parseISO(i.applied_date)) / 12) }))} layout="vertical">
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis type="number" tickFormatter={v => `${v.toFixed(0)}%`} fontSize={11} stroke="hsl(var(--muted-foreground))" />
@@ -498,7 +498,7 @@ export default function Investimentos() {
                   for (let j = 0; j < 6; j++) { balance = balance * (1 + monthlyRate) + monthlyAporte; }
                 }
                 return (
-                  <ResponsiveContainer width="100%" height={250}>
+                  <ResponsiveContainer width="100%" height={320}>
                     <LineChart data={projData}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="month" fontSize={11} stroke="hsl(var(--muted-foreground))" />

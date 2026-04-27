@@ -107,6 +107,19 @@ export default function OrcamentoFamiliar() {
   const [selectedMember, setSelectedMember] = useState<string>("all");
   const [editingIncome, setEditingIncome] = useState(false);
   const [tempIncome, setTempIncome] = useState("");
+  const [selectedYear, setSelectedYear] = useState<string>("Todos");
+
+  const getHistoryYear = (month: string) => parseInt("20" + month.split("/")[1]);
+  const availableYears = useMemo(
+    () => Array.from(new Set(mockHistory.map(h => getHistoryYear(h.month)))).sort(),
+    []
+  );
+  const filteredHistory = useMemo(
+    () => selectedYear === "Todos"
+      ? mockHistory
+      : mockHistory.filter(h => getHistoryYear(h.month) === parseInt(selectedYear)),
+    [selectedYear]
+  );
 
   if (isEmpresarial) {
     return (
@@ -251,25 +264,27 @@ export default function OrcamentoFamiliar() {
           <Card>
             <CardHeader><CardTitle className="text-base">Distribuição do Orçamento</CardTitle></CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={250}>
+              <ResponsiveContainer width="100%" height={320}>
                 <PieChart>
                   <Pie
                     data={[
-                      { name: "Necessidades (50%)", value: income * 0.5, fill: "hsl(var(--primary))" },
-                      { name: "Desejos (30%)", value: income * 0.3, fill: "hsl(var(--info))" },
-                      { name: "Poupança (20%)", value: income * 0.2, fill: "hsl(var(--accent))" },
+                      { name: "Necessidades (50%)", value: income * 0.5 },
+                      { name: "Desejos (30%)", value: income * 0.3 },
+                      { name: "Poupança (20%)", value: income * 0.2 },
                     ]}
+                    dataKey="value"
                     cx="50%"
                     cy="50%"
-                    labelLine={false}
-                    label={({ name, value }) => `${name} ${fmt(value)}`}
-                    outerRadius={80}
+                    labelLine={true}
+                    label={({ name, value }: { name: string; value: number }) => `${name}: ${fmt(value)}`}
+                    outerRadius={110}
                   >
                     <Cell fill="hsl(var(--primary))" />
                     <Cell fill="hsl(var(--info))" />
                     <Cell fill="hsl(var(--accent))" />
                   </Pie>
                   <Tooltip formatter={(v: number) => fmt(v)} />
+                  <Legend />
                 </PieChart>
               </ResponsiveContainer>
             </CardContent>
@@ -363,7 +378,25 @@ export default function OrcamentoFamiliar() {
 
       {/* Budget Table */}
       <Card>
-        <CardHeader><CardTitle className="text-base">Orçamento por Categoria</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between pb-3">
+          <div>
+            <CardTitle className="text-base">Orçamento por Categoria</CardTitle>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {selectedYear === "Todos" ? "Todos os anos" : `Ano ${selectedYear}`} — exibindo mês atual
+            </p>
+          </div>
+          <Select value={selectedYear} onValueChange={setSelectedYear}>
+            <SelectTrigger className="w-36 h-8 text-sm">
+              <SelectValue placeholder="Todos os anos" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Todos">Todos os anos</SelectItem>
+              {availableYears.map(y => (
+                <SelectItem key={y} value={String(y)}>{y}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
@@ -432,10 +465,30 @@ export default function OrcamentoFamiliar() {
 
       {/* History Chart */}
       <Card>
-        <CardHeader><CardTitle className="text-base">Histórico Mensal</CardTitle><CardDescription>Gasto real vs orçado nos últimos 6 meses</CardDescription></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between pb-3">
+          <div>
+            <CardTitle className="text-base">Histórico Mensal</CardTitle>
+            <CardDescription>
+              {selectedYear === "Todos"
+                ? `${filteredHistory.length} meses (${availableYears[0]}–${availableYears[availableYears.length - 1]})`
+                : `${filteredHistory.length} meses de ${selectedYear}`}
+            </CardDescription>
+          </div>
+          <Select value={selectedYear} onValueChange={setSelectedYear}>
+            <SelectTrigger className="w-36 h-8 text-sm">
+              <SelectValue placeholder="Todos os anos" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Todos">Todos os anos</SelectItem>
+              {availableYears.map(y => (
+                <SelectItem key={y} value={String(y)}>{y}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </CardHeader>
         <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={mockHistory}>
+          <ResponsiveContainer width="100%" height={380}>
+            <BarChart data={filteredHistory}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="month" fontSize={11} stroke="hsl(var(--muted-foreground))" />
               <YAxis tickFormatter={v => `${(v/1000).toFixed(0)}k`} fontSize={11} stroke="hsl(var(--muted-foreground))" />
